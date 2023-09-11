@@ -15,8 +15,6 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  
   //Temporary initial fetch from Supabase
   useEffect(() => {
     getData();
