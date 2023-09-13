@@ -7,7 +7,7 @@ async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
   OneSignal.Slidedown.promptPush();
 }
-runOneSignal();
+if(location.hostname === "subbuddy.vercel.app") runOneSignal();
 
 //Supabase setup
 const supabaseUrl:string = import.meta.env.VITE_SUPABASE_URL
