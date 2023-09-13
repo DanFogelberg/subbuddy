@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import { useState, useEffect, useId } from 'react'
 import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import OneSignal from 'react-onesignal';
@@ -36,7 +36,7 @@ function App() {
   )
 }
 
-/*
+
 //Temporary fetch test function for Supabase. Will only get subscription for user because of Supabase RLS(Row Level Security)
 async function getData() {
   const { data } = await supabase.from("subscription").select();
@@ -76,6 +76,6 @@ async function insert() {
   console.log(data);
   console.log(error);
 }
-*/
+
 
 export default App
