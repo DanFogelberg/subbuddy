@@ -3,6 +3,8 @@ import './App.css'
 import { createClient } from '@supabase/supabase-js'
 import OneSignal from 'react-onesignal';
 
+import LoginForm from './components/LoginForm/LoginForm';
+
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
   OneSignal.Slidedown.promptPush();
@@ -31,6 +33,7 @@ function App() {
   return (
     <>
       <h1>Subbuddy</h1>
+      <LoginForm />
     </>
   )
 }

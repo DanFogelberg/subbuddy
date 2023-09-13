@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 :root {
+  --color-button-primary-black: #070707;
+  --color-button-primary-orange: #FFDFB6;
+  --color-button-primary-orange-pressed: #FFB85E;
+  --color-button-primary-black-pressed: #515356;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
