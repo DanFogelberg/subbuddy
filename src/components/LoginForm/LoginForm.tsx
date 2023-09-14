@@ -50,7 +50,7 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                 <label htmlFor="remember-me">Kom ihåg mig</label>
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
-                <Button title="Logga in" clickFunction = {(e:Event) => login(user, password)} type= "button"/>
+                <Button title="Logga in" clickFunction = {() => login(user, password)} type= "button"/>
                 <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button"/>
             </div>
         </form>
