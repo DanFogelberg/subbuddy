@@ -1,16 +1,31 @@
 import React from "react";
 import Button from "../Button/Button";
 import { ChangeEvent, useState } from "react";
+import { SupabaseClient } from "@supabase/supabase-js";
 
-const LoginForm = () => {
+interface LoginProps {
+    supabase:SupabaseClient;
+}
+
+const LoginForm:React.FC<LoginProps> = (props) => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
 
-    const login = (accountName: string, password: string) => {
-        console.log(accountName, password);
+    const login = (user: string, password: string) => {
+        
+        console.log(user, password);
+        console.log(props.supabase);
+        props.supabase.auth.signInWithPassword({
+            email: user,
+            password: password
+            }).then((response) => console.log(response));
     }
     const createAccount = (user:string, password:string) => {
         console.log(user, password);
+        props.supabase.auth.signUp({
+            email: user, 
+            password: password
+        }).then((response) => console.log(response));
     }
     
     const handleUserChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +50,7 @@ const LoginForm = () => {
                 <label htmlFor="remember-me">Kom ihåg mig</label>
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
-                <Button title="Logga in" clickFunction = {() => login(user, password)}/>
+                <Button title="Logga in" clickFunction = {(e:Event) => login(user, password)} type= "button"/>
                 <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button"/>
             </div>
         </form>

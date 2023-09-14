@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <h1>Subbuddy</h1>
-      <LoginForm />
+      <LoginForm supabase = {supabase} />
     </>
   )
 }
