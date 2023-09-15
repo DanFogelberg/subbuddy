@@ -23,17 +23,17 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 function App() {
   //Temporary testing function for Supabase
+  const [signedIn, setSignedIn] = useState(false);
   useEffect(() => {
     //getData();
     //login();
     //signup();
-    
   }, []);
 
   return (
     <>
-      <h1>Subbuddy</h1>
-      <LoginForm supabase = {supabase} />
+      <h1>Subbuddy</h1> 
+      {signedIn ? <h2>Fesk</h2> : <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} />}
     </>
   )
 }
@@ -55,8 +55,6 @@ async function login() {
   console.log(data);
   insert();
   getData();
-
-
 }
 
 //Temporary sign up test function

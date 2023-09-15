@@ -5,20 +5,20 @@ import { SupabaseClient } from "@supabase/supabase-js";
 
 interface LoginProps {
     supabase:SupabaseClient;
+    setSignedIn:Function;
 }
 
 const LoginForm:React.FC<LoginProps> = (props) => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
 
-    const login = (user: string, password: string) => {
-        
-        console.log(user, password);
-        console.log(props.supabase);
+    const signIn = (user: string, password: string) => {
         props.supabase.auth.signInWithPassword({
             email: user,
             password: password
-            }).then((response) => console.log(response));
+            }).then((response) => {
+                if(response.error === null) props.setSignedIn(true)
+            });
     }
     const createAccount = (user:string, password:string) => {
         console.log(user, password);
@@ -30,7 +30,6 @@ const LoginForm:React.FC<LoginProps> = (props) => {
     
     const handleUserChange = (e:ChangeEvent<HTMLInputElement>) => {
         setUser(e.target.value);
-        console.log(e.target.value);
     }
     const handlePasswordChange = (e:ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
@@ -50,7 +49,7 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                 <label htmlFor="remember-me">Kom ihåg mig</label>
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
-                <Button title="Logga in" clickFunction = {() => login(user, password)} type= "button"/>
+                <Button title="Logga in" clickFunction = {() => signIn(user, password)} type= "button"/>
                 <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button"/>
             </div>
         </form>
