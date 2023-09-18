@@ -7,6 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        font_primary_black: 'var(--color-font-color-black)',
+        font_primary_white: 'var(--color-font-color-white)',
         button_primary_black: 'var(--color-button-primary-black)',
         button_primary_black_pressed: 'var(--color-button-primary-black-pressed)',
         button_primary_orange: 'var(--color-button-primary-orange)',

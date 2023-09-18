@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  --color-background-bg-primary-white: #F9F8F7;
+  --color-font-color-black: #070707;
+  --color-font-color-white: #FFF;
   --color-button-primary-black: #070707;
   --color-button-primary-orange: #FFDFB6;
   --color-button-primary-orange-pressed: #FFB85E;
@@ -11,8 +14,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-font-color-black);
+  background-color: var(--color-background-bg-primary-white);
 }
 
 
