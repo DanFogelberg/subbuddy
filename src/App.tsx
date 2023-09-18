@@ -29,7 +29,8 @@ function App() {
   const [subscriptions, setSubscriptions] = useState<Array<any>>([]); //Fix typescript
   const [providers, setProviders] = useState<Array<any>>([]); //Fix typescript
   const [services, setServices] = useState<Array<any>>([]); //Fix typescript
-  const [totalCost, setTotalCost] = useState(0);
+  const [totalCost, setTotalCost] = useState<number>(0);
+  const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
 
   //Example typescript for useStates
   // const [titles, setTitles]: [
@@ -84,12 +85,17 @@ function App() {
     else setServices(data); 
   }
 
-  return (
+  
+
+  if(signedIn) return (
     <>
-      <h1>Subbuddy</h1> 
-      {signedIn ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/><Menu/></> : <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} />}
+      <h1>Subbuddy</h1>
+      {view ===  "home" ? <h2>home</h2> : view === "subscriptions" ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/></>  : <h2>profajl</h2>}
+      <Menu setView = {setView}/>
     </>
   )
+
+  return (<LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions}/>)
 }
 
 
