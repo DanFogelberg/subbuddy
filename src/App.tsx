@@ -26,9 +26,10 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 function App() {
   //Temporary testing function for Supabase
   const [signedIn, setSignedIn] = useState(false);
-  const [subscriptions, setSubscriptions] = useState<Array<string>>([]); //Fix typescript
-  const [providers, setProviders] = useState<Array<string>>([]); //Fix typescript
-  const [services, setServices] = useState<Array<string>>([]); //Fix typescript
+  const [subscriptions, setSubscriptions] = useState<Array<any>>([]); //Fix typescript
+  const [providers, setProviders] = useState<Array<any>>([]); //Fix typescript
+  const [services, setServices] = useState<Array<any>>([]); //Fix typescript
+  const [totalCost, setTotalCost] = useState(0);
 
   //Example typescript for useStates
   // const [titles, setTitles]: [
@@ -44,11 +45,14 @@ function App() {
     //signup();
   }, []);
 
+  useEffect(() => {
+    calculateTotalCost();
+  }, [subscriptions]);
+
   async function getSubscriptions() {
-    const { data } = await supabase.from("subscription").select("*, service(id, name, provider(id, name)))");
+    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
-    console.log(data);
   }
 
   async function getProviders() {
@@ -57,18 +61,33 @@ function App() {
     else setProviders(data); //Should get provider and service for each subscription
     console.log(data);
   }
+
+  const calculateTotalCost = () => {
+    let totalcost = 0;
+    const today = new Date();
+    subscriptions.forEach((subscription) => {
+      let date = new Date(subscription.next_payment);
+      while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate())
+      {
+        totalcost += subscription.service.cost;
+        date.setDate(date.getDate() + subscription.service.days_per_payment);
+        console.log(totalcost);
+      }
+      setTotalCost(totalcost);
+      console.log("Monthly cost = " + totalcost);
+    })  
+  }
   
   async function getServices() {
     const { data } = await supabase.from("service").select();
     if(data === null) setServices([]);
-    else setServices(data); //Should get provider and service for each subscription
-    console.log(data);
+    else setServices(data); 
   }
 
   return (
     <>
       <h1>Subbuddy</h1> 
-      {signedIn ? <SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/> : <><LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} /><Menu/></>}
+      {signedIn ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/><Menu/></> : <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} />}
     </>
   )
 }
