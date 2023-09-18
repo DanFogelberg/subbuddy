@@ -6,6 +6,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 interface LoginProps {
     supabase:SupabaseClient;
     setSignedIn:Function;
+    getSubscriptions:Function;
 }
 
 const LoginForm:React.FC<LoginProps> = (props) => {
@@ -17,7 +18,11 @@ const LoginForm:React.FC<LoginProps> = (props) => {
             email: user,
             password: password
             }).then((response) => {
-                if(response.error === null) props.setSignedIn(true)
+                if(response.error === null)
+                {
+                    props.setSignedIn(true)
+                    props.getSubscriptions();  
+                }
             });
     }
     const createAccount = (user:string, password:string) => {

@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js'
 import OneSignal from 'react-onesignal';
 
 import LoginForm from './components/LoginForm/LoginForm';
+import Menu from './components/Menu/Menu';
+import SubscriptionsList from './components/SubscriptionsList/SubscriptionsList';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -24,38 +26,39 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 function App() {
   //Temporary testing function for Supabase
   const [signedIn, setSignedIn] = useState(false);
+  const [subscriptions, setSubscriptions] = useState<Array<string>>([]); //Fix typescript
+
+  //Example typescript for useStates
+  // const [titles, setTitles]: [
+  //   titles: titleObject[],
+  //   setTitles: React.Dispatch<React.SetStateAction<titleObject[]>>
+  // ] = useState<Array<titleObject>>([]); //**För att typa titles måste vi type setTitles
+
+
   useEffect(() => {
-    //getData();
+    //getSubscriptions();
     //login();
     //signup();
   }, []);
 
+  async function getSubscriptions() {
+    const { data } = await supabase.from("subscription").select();
+    if(data === null) setSubscriptions([]);
+    else setSubscriptions(data); //Should get provider and service for each subscription
+    console.log(data);
+  
+  }
+
   return (
     <>
       <h1>Subbuddy</h1> 
-      {signedIn ? <h2>Fesk</h2> : <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} />}
+      {signedIn ? <SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/> : <><LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} /><Menu/></>}
     </>
   )
 }
 
 
 //Temporary fetch test function for Supabase. Will only get subscription for user because of Supabase RLS(Row Level Security)
-async function getData() {
-  const { data } = await supabase.from("subscription").select();
-  console.log(data);
-
-}
-
-//Temporary login test function
-async function login() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-  email: 'example2@email.com',
-  password: 'example-password2',
-  })
-  console.log(data);
-  insert();
-  getData();
-}
 
 //Temporary sign up test function
 async function signup() {
