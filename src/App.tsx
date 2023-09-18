@@ -27,6 +27,8 @@ function App() {
   //Temporary testing function for Supabase
   const [signedIn, setSignedIn] = useState(false);
   const [subscriptions, setSubscriptions] = useState<Array<string>>([]); //Fix typescript
+  const [providers, setProviders] = useState<Array<string>>([]); //Fix typescript
+  const [services, setServices] = useState<Array<string>>([]); //Fix typescript
 
   //Example typescript for useStates
   // const [titles, setTitles]: [
@@ -36,17 +38,31 @@ function App() {
 
 
   useEffect(() => {
-    //getSubscriptions();
+    getProviders();
+    getServices();
     //login();
     //signup();
   }, []);
 
   async function getSubscriptions() {
-    const { data } = await supabase.from("subscription").select();
+    const { data } = await supabase.from("subscription").select("*, service(id, name, provider(id, name)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
     console.log(data);
+  }
+
+  async function getProviders() {
+    const { data } = await supabase.from("provider").select();
+    if(data === null) setProviders([]);
+    else setProviders(data); //Should get provider and service for each subscription
+    console.log(data);
+  }
   
+  async function getServices() {
+    const { data } = await supabase.from("service").select();
+    if(data === null) setServices([]);
+    else setServices(data); //Should get provider and service for each subscription
+    console.log(data);
   }
 
   return (
@@ -58,7 +74,13 @@ function App() {
 }
 
 
+
+
 //Temporary fetch test function for Supabase. Will only get subscription for user because of Supabase RLS(Row Level Security)
+
+
+
+
 
 //Temporary sign up test function
 async function signup() {
