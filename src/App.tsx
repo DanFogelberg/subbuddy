@@ -6,6 +6,7 @@ import OneSignal from 'react-onesignal';
 import LoginForm from './components/LoginForm/LoginForm';
 import Menu from './components/Menu/Menu';
 import SubscriptionsList from './components/SubscriptionsList/SubscriptionsList';
+import MonthlyCostCard from './components/MonthlyCostCard/MonthlyCostCard';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -68,7 +69,7 @@ function App() {
     const today = new Date();
     subscriptions.forEach((subscription) => {
       let date = new Date(subscription.next_payment);
-      while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate())
+      while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate()) //What to do when date has passed?
       {
         totalcost += subscription.service.cost;
         date.setDate(date.getDate() + subscription.service.days_per_payment);
@@ -90,7 +91,7 @@ function App() {
   if(signedIn) return (
     <>
       <h1>Subbuddy</h1>
-      {view ===  "home" ? <h2>home</h2> : view === "subscriptions" ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/></>  : <h2>profajl</h2>}
+      {view ===  "home" ? <MonthlyCostCard totalCost = {totalCost}/> : view === "subscriptions" ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/></>  : <h2>profajl</h2>}
       <Menu setView = {setView}/>
     </>
   )
