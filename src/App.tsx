@@ -7,6 +7,8 @@ import LoginForm from './components/LoginForm/LoginForm';
 import Menu from './components/Menu/Menu';
 import SubscriptionsList from './components/SubscriptionsList/SubscriptionsList';
 import MonthlyCostCard from './components/MonthlyCostCard/MonthlyCostCard';
+import StatisticsCard from './components/StatisticsCard/StatisticsCard';
+import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/UpcomingPaymentsContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -55,6 +57,7 @@ function App() {
     const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
+    console.log(data);
   }
 
   async function getProviders() {
@@ -91,7 +94,17 @@ function App() {
   if(signedIn) return (
     <>
       <h1>Subbuddy</h1>
-      {view ===  "home" ? <MonthlyCostCard totalCost = {totalCost}/> : view === "subscriptions" ? <><SubscriptionsList subscriptions = {subscriptions} supabase = {supabase}/></>  : <h2>profajl</h2>}
+      {view ===  "home" ? <>
+        <MonthlyCostCard totalCost = {totalCost}/>
+        <UpcomingPaymentsContainer subscriptions = {subscriptions}/>
+        <h2>statistik</h2>{/* temp h2 */}
+        <StatisticsCard/>
+      </> 
+      : view === "subscriptions" ? <>
+        <SubscriptionsList subscriptions =   {subscriptions} supabase = {supabase}/>
+        
+      </>  
+      : <h2>profajl</h2>}
       <Menu setView = {setView}/>
     </>
   )
