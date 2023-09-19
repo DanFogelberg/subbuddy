@@ -33,6 +33,9 @@ function App() {
   const [providers, setProviders] = useState<Array<any>>([]); //Fix typescript
   const [services, setServices] = useState<Array<any>>([]); //Fix typescript
   const [totalCost, setTotalCost] = useState<number>(0);
+  const [streamingCost, setStreamingCost] = useState<number>(0);
+  const [musicCost, setMusicCost] = useState<number>(0);
+  const [paperCost, setPaperCost] = useState<number>(0);
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
 
   //Example typescript for useStates
@@ -50,11 +53,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    calculateTotalCost();
+    calculateCosts();
   }, [subscriptions]);
 
   async function getSubscriptions() {
-    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name)))");
+    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, category, provider(id, name)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
     console.log(data);
@@ -64,22 +67,28 @@ function App() {
     const { data } = await supabase.from("provider").select();
     if(data === null) setProviders([]);
     else setProviders(data); //Should get provider and service for each subscription
-    console.log(data);
   }
 
-  const calculateTotalCost = () => {
-    let totalcost = 0;
+  const calculateCosts = () => {
+    let totalCost = 0;
+    let streamingCost = 0;
+    let musicCost = 0;
+    let paperCost = 0;
     const today = new Date();
     subscriptions.forEach((subscription) => {
       let date = new Date(subscription.next_payment);
       while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate()) //What to do when date has passed?
       {
-        totalcost += subscription.service.cost;
+        totalCost += subscription.service.cost;
+        if(subscription.service.category === "streaming") streamingCost += subscription.service.cost;
+        else if(subscription.service.category === "music") musicCost += subscription.service.cost;
+        else if(subscription.service.category === "paper") paperCost += subscription.service.cost; //Fix!
         date.setDate(date.getDate() + subscription.service.days_per_payment);
-        console.log(totalcost);
       }
-      setTotalCost(totalcost);
-      console.log("Monthly cost = " + totalcost);
+      setTotalCost(totalCost);
+      setStreamingCost(streamingCost);
+      setMusicCost(musicCost);
+      setPaperCost(paperCost);
     })  
   }
   
@@ -98,7 +107,9 @@ function App() {
         <MonthlyCostCard totalCost = {totalCost}/>
         <UpcomingPaymentsContainer subscriptions = {subscriptions}/>
         <h2>statistik</h2>{/* temp h2 */}
-        <StatisticsCard/>
+        <StatisticsCard name = "Streaming" cost = {streamingCost}/>
+        <StatisticsCard name = "Musik" cost = {musicCost}/>
+        <StatisticsCard name = "Tidning" cost = {paperCost}/>
       </> 
       : view === "subscriptions" ? <>
         <SubscriptionsList subscriptions =   {subscriptions} supabase = {supabase}/>
