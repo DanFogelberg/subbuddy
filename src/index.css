@@ -6,11 +6,12 @@
   --color-background-bg-primary-white: #F9F8F7;
   --color-font-color-black: #070707;
   --color-font-color-white: #FFF;
+  --color-font-color-gray: #515356;
   --color-button-primary-black: #070707;
   --color-button-primary-orange: #FFDFB6;
   --color-button-primary-orange-pressed: #FFB85E;
   --color-button-primary-black-pressed: #515356;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -18,6 +19,9 @@
   background-color: var(--color-background-bg-primary-white);
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   margin: 0;

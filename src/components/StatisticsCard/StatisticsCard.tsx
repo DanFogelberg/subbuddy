@@ -4,7 +4,7 @@ const StatisticsCard = () => {
             <p className="font-semibold">Streaming</p>
             <div className="text-right">
                 <p className="font-semibold">218 kr</p>
-                <p className="text-xs font-medium">i månaden</p>
+                <p className="text-xs font-medium text-font_primary_gray">i månaden</p>
             </div>
         </article>
     );

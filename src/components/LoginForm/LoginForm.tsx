@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../Button/Button";
 import { ChangeEvent, useState } from "react";
 import { SupabaseClient } from "@supabase/supabase-js";
+import checkboxArrow from '../../assets/icons/checkbox-arrow.svg';
 
 interface LoginProps {
     supabase:SupabaseClient;
@@ -50,8 +51,9 @@ const LoginForm:React.FC<LoginProps> = (props) => {
             <label htmlFor="password">Lösenord</label>
             <input className="border-b-[1px] bg-transparent w-full" type="password" name="password" onChange = {handlePasswordChange} required/>
             <div className="mb-[84px]">
-                <input className="mr-3" type="checkbox" name="remember-me" />
+                <input className="appearance-none relative mr-3 w-4 h-4 rounded-[2px] border-solid border-[1px]  border-black checked:bg-black peer" type="checkbox" name="remember-me" />
                 <label htmlFor="remember-me">Kom ihåg mig</label>
+                <img className="absolute w-4 h-4 hidden peer-checked:block" src={checkboxArrow} alt="Checkbox arrow." />
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
                 <Button title="Logga in" clickFunction = {() => signIn(user, password)} type= "button"/>
