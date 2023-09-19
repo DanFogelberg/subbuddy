@@ -1,4 +1,4 @@
-import netflixLogo from '../../assets/icons/netflix-logo.png';
+import netflixLogo from '../../assets/images/netflix-logo.png';
 
 interface UpcomingPaymentCardProps{
     name:string;

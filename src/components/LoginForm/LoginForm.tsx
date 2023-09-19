@@ -50,10 +50,10 @@ const LoginForm:React.FC<LoginProps> = (props) => {
             <input className="border-b-[1px] bg-transparent w-full" type="text" name="user-name" onChange = {handleUserChange} required/>
             <label htmlFor="password">Lösenord</label>
             <input className="border-b-[1px] bg-transparent w-full" type="password" name="password" onChange = {handlePasswordChange} required/>
-            <div className="mb-[84px]">
-                <input className="appearance-none relative mr-3 w-4 h-4 rounded-[2px] border-solid border-[1px]  border-black checked:bg-black peer" type="checkbox" name="remember-me" />
+            <div className="mb-[84px] relative">
+                <input className="appearance-none mr-3 w-4 h-4 rounded-[2px] border-solid border-[1px]  border-black checked:bg-black peer" type="checkbox" name="remember-me" />
                 <label htmlFor="remember-me">Kom ihåg mig</label>
-                <img className="absolute w-4 h-4 hidden peer-checked:block" src={checkboxArrow} alt="Checkbox arrow." />
+                <img className="absolute w-2.5 h-2.5 pointer-events-none top-[19%] left-[2.5%] hidden peer-checked:block" src={checkboxArrow} alt="Checkbox arrow." />
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
                 <Button title="Logga in" clickFunction = {() => signIn(user, password)} type= "button"/>
