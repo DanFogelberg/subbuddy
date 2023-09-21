@@ -63,7 +63,7 @@ function App() {
   }, [subscriptions]);
 
   async function getSubscriptions() {
-    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, category, provider(id, name)))");
+    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
     console.log(data);
@@ -86,9 +86,9 @@ function App() {
       while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate()) //What to do when date has passed?
       {
         totalCost += subscription.service.cost;
-        if(subscription.service.category === "streaming") streamingCost += subscription.service.cost;
-        else if(subscription.service.category === "music") musicCost += subscription.service.cost;
-        else if(subscription.service.category === "paper") paperCost += subscription.service.cost; //Fix!
+        if(subscription.service.provider.category === "streaming") streamingCost += subscription.service.cost;
+        else if(subscription.service.provider.category === "music") musicCost += subscription.service.cost;
+        else if(subscription.service.provider.category === "paper") paperCost += subscription.service.cost; //Fix!
         date.setDate(date.getDate() + subscription.service.days_per_payment);
       }
       setTotalCost(totalCost);
