@@ -42,6 +42,8 @@ function App() {
   const [subscriptionsView, setSubscriptionsView] = useState<string>("search"); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
+  const [profileView, setProfileView] = useState<string>("myAccount"); //Vies on "profile" page: myAccount, profile, notifications
+
   //Example typescript for useStates
   // const [titles, setTitles]: [
   //   titles: titleObject[],
@@ -128,13 +130,28 @@ function App() {
         </> 
         : subscriptionsView === "category" ? 
         <>
-          Här är den specifika kategorin: {categoryView}. Tjohej! .map och kolla kategori.
+          <p onClick = {() => {setSubscriptionsView("addSubscription")}}>Här är den specifika kategorin: {categoryView}. Tjohej! .map och kolla kategori.</p>
         </> 
         : //Addsub
         <>
-          Här lägger vi till en specifik sub!
+          Här lägger vi till en specifik sub! Borde vara en egen modul där vi skickar ner subben.
         </>
-      : <h2>profajl</h2>}
+      : profileView === "myAccount" ?
+      <> 
+        <h2 onClick = {() => setProfileView("profile")}>profajl</h2>
+        <h2 onClick = {() => setProfileView("notifications")}>notifications</h2>
+      </>
+      : profileView === "profile" ?
+      <>
+        <h2 onClick = {() => setProfileView("myAccount")}>Back</h2>
+        <h2>Det är profile</h2>
+      </>
+      :
+      <>
+        <h2 onClick = {() => setProfileView("myAccount")}>Back</h2>
+        <h2>Det är notifications</h2>
+      </>
+      }
       <Menu setView = {setView}/>
     </>
   )
