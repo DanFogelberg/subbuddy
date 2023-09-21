@@ -9,6 +9,7 @@ import SubscriptionsList from './components/SubscriptionsList/SubscriptionsList'
 import MonthlyCostCard from './components/MonthlyCostCard/MonthlyCostCard';
 import StatisticsCard from './components/StatisticsCard/StatisticsCard';
 import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/UpcomingPaymentsContainer';
+import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -36,7 +37,10 @@ function App() {
   const [streamingCost, setStreamingCost] = useState<number>(0);
   const [musicCost, setMusicCost] = useState<number>(0);
   const [paperCost, setPaperCost] = useState<number>(0);
+  
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
+  const [subscriptionsView, setSubscriptionsView] = useState<string>("search"); //Views on "subscriptions" page: allSubs categories search
+  const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
   //Example typescript for useStates
   // const [titles, setTitles]: [
@@ -107,14 +111,29 @@ function App() {
         <MonthlyCostCard totalCost = {totalCost}/>
         <UpcomingPaymentsContainer subscriptions = {subscriptions}/>
         <h2>statistik</h2>{/* temp h2 */}
-        <StatisticsCard name = "Streaming" cost = {streamingCost}/>
-        <StatisticsCard name = "Musik" cost = {musicCost}/>
-        <StatisticsCard name = "Tidning" cost = {paperCost}/>
+        {streamingCost > 0 ? <StatisticsCard name = "Streaming" cost = {streamingCost}/>: <></>}
+        {musicCost > 0 ? <StatisticsCard name = "Music" cost = {musicCost}/>: <></>}
+        {paperCost > 0 ? <StatisticsCard name = "Tidning" cost = {paperCost}/>: <></>}
       </> 
-      : view === "subscriptions" ? <>
-        <SubscriptionsList subscriptions =   {subscriptions} supabase = {supabase}/>
-        
-      </>  
+      : view === "subscriptions" ? 
+        subscriptionsView === "allSubs" ? 
+        <>
+          <SubscriptionsList subscriptions =   {subscriptions} supabase = {supabase}/>
+        </>  
+        : subscriptionsView === "search" ? 
+        <>
+          <h2>Kategorier</h2>
+          <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
+          <h2>Populära subs</h2>
+        </> 
+        : subscriptionsView === "category" ? 
+        <>
+          Här är den specifika kategorin: {categoryView}. Tjohej! .map och kolla kategori.
+        </> 
+        : //Addsub
+        <>
+          Här lägger vi till en specifik sub!
+        </>
       : <h2>profajl</h2>}
       <Menu setView = {setView}/>
     </>
