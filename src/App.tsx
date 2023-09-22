@@ -5,11 +5,11 @@ import OneSignal from 'react-onesignal';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import Menu from './components/Menu/Menu';
-import SubscriptionsList from './components/SubscriptionsList/SubscriptionsList';
 import MonthlyCostCard from './components/MonthlyCostCard/MonthlyCostCard';
 import StatisticsCard from './components/StatisticsCard/StatisticsCard';
 import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/UpcomingPaymentsContainer';
 import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
+import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -39,7 +39,7 @@ function App() {
   const [paperCost, setPaperCost] = useState<number>(0);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
-  const [subscriptionsView, setSubscriptionsView] = useState<string>("search"); //Views on "subscriptions" page: allSubs categories search
+  const [subscriptionsView, setSubscriptionsView] = useState<string>("allSubs"); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
   const [profileView, setProfileView] = useState<string>("myAccount"); //Vies on "profile" page: myAccount, profile, notifications
@@ -120,7 +120,10 @@ function App() {
       : view === "subscriptions" ? 
         subscriptionsView === "allSubs" ? 
         <>
-          <SubscriptionsList subscriptions =   {subscriptions} supabase = {supabase}/>
+          {subscriptions.map((subscription, id) => {
+            return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={id}/>
+          })}
+          
         </>  
         : subscriptionsView === "search" ? 
         <>
