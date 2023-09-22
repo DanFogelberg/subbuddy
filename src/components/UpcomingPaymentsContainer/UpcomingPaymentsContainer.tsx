@@ -1,7 +1,10 @@
+import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 import UpcomingPaymentCard from "../UpcomingPaymentCard/UpcomingPaymentCard";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface UpcomingPaymentsContainerProps {
     subscriptions:Array<any>;
+    supabase: SupabaseClient;
 }
 
 const UpcomingPaymentsContainer = (props:UpcomingPaymentsContainerProps) => {
@@ -11,7 +14,7 @@ const UpcomingPaymentsContainer = (props:UpcomingPaymentsContainerProps) => {
                 const today = new Date(); 
                 const nextPayment = new Date(subscription.next_payment);
                 const daysLeft = Math.round((nextPayment.getTime() - today.getTime())/(1000*60*60*24));
-                return <UpcomingPaymentCard key = {id} name={subscription.service.provider.name} cost={subscription.service.cost} daysLeft={daysLeft}/>
+                return <UpcomingPaymentCard key = {id} name={subscription.service.provider.name} cost={subscription.service.cost} daysLeft={daysLeft} supabase = {props.supabase} logo = {subscription.service.provider.logo} />
             })}
         </section>
     );

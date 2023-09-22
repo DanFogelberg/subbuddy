@@ -63,7 +63,7 @@ function App() {
   }, [subscriptions]);
 
   async function getSubscriptions() {
-    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category)))");
+    const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category, logo)))");
     if(data === null) setSubscriptions([]);
     else setSubscriptions(data); //Should get provider and service for each subscription
     console.log(data);
@@ -111,7 +111,7 @@ function App() {
       <h1>Subbuddy</h1>
       {view ===  "home" ? <>
         <MonthlyCostCard totalCost = {totalCost}/>
-        <UpcomingPaymentsContainer subscriptions = {subscriptions}/>
+        <UpcomingPaymentsContainer subscriptions = {subscriptions} supabase = {supabase}/>
         <h2>statistik</h2>{/* temp h2 */}
         {streamingCost > 0 ? <StatisticsCard name = "Streaming" cost = {streamingCost}/>: <></>}
         {musicCost > 0 ? <StatisticsCard name = "Music" cost = {musicCost}/>: <></>}
