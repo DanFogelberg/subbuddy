@@ -13,6 +13,7 @@ import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSu
 import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
 import ProvidersContainer from './components/ProvidersContainer/ProvidersContainer';
 import AddSubscriptionIcon from './components/AddSubscriptionIcon/AddSubscriptionIcon';
+import AddSubscriptionContainer from './components/AddSubscriptionContainer/AddSubscriptionContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -139,6 +140,7 @@ function App() {
           {subscriptions.map((subscription, id) => {
             return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={id}/>
           })}
+          <AddSubscriptionContainer services={services}/>
           
         </>  
         : subscriptionsView === "search" ? 
