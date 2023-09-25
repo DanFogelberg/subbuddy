@@ -1,0 +1,21 @@
+.react-datepicker {
+    font-family: 'Raleway', sans-serif;
+    border: none;
+    padding: 16px;
+}
+
+.react-datepicker__day {
+    font-size: 14px;
+
+}
+
+.react-datepicker__day-names {
+    font-size: 10.527px;
+    text-transform: uppercase;
+}
+
+.react-datepicker__day--selected {
+    background-color: var(--color-button-primary-orange);
+    color: var(--color-font-color-white);
+    border-radius: 50%;
+}
