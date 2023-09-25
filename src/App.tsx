@@ -12,6 +12,7 @@ import CategoriesContainer from './components/CategoriesContainer/CategoriesCont
 import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
 import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
 import PopularSubscriptionsContainer from './components/PopularSubscriptionsContainer/PopularSubscriptionsContainer';
+import AddSubscriptionIcon from './components/AddSubscriptionIcon/AddSubscriptionIcon';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -135,6 +136,7 @@ function App() {
         : subscriptionsView === "search" ? 
         <>
           <h2>Kategorier</h2>
+          <AddSubscriptionIcon />
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
           <PopularSubscriptionsContainer topProviders={topProviders} supabase={supabase}/>

@@ -11,12 +11,12 @@ const PaymentDateOptions: React.FC = () => {
     console.log(startDate);
 
     return (
-        <DatePicker 
+        <DatePicker
             required
             inline
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            />
+        />
     );
 }
 
