@@ -31,6 +31,11 @@ const supabaseKey: string = import.meta.env.VITE_SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
+interface Provider{
+  name:string;
+  id: number;
+}
+
 function App() {
   //Temporary testing function for Supabase
   const [signedIn, setSignedIn] = useState(false);
@@ -43,6 +48,8 @@ function App() {
   const [streamingCost, setStreamingCost] = useState<number>(0);
   const [musicCost, setMusicCost] = useState<number>(0);
   const [paperCost, setPaperCost] = useState<number>(0);
+  const [addedProvider, setAddedProvider] = useState<Provider>({name: "", id: 0});
+  const [addedProviderServices, setAddedProviderServices] = useState<Array<Provider>>([]);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
   const [subscriptionsView, setSubscriptionsView] = useState<string>("allSubs"); //Views on "subscriptions" page: allSubs categories search
@@ -73,6 +80,14 @@ function App() {
     })
     setCategoryProviders(newCategoryProviders);
   }, [categoryView])
+
+  useEffect(() => {
+    const newAddedProviderServices:Array<Provider> = [];
+    services.forEach((service) => {
+      if(service.provider_id === addedProvider.id) newAddedProviderServices.push(service);
+    })
+    setAddedProviderServices(newAddedProviderServices);
+  },[addedProvider] )
 
   async function getSubscriptions() {
     const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category, logo)))");
@@ -140,26 +155,27 @@ function App() {
           {subscriptions.map((subscription, id) => {
             return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={id}/>
           })}
-          <AddSubscriptionContainer services={services}/>
-          
         </>  
         : subscriptionsView === "search" ? 
         <>
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
-          <ProvidersContainer providers={topProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
+          <ProvidersContainer providers={topProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView} setAddedProvider={setAddedProvider}/>
           
         </> 
         : subscriptionsView === "category" ? 
         <>
           {/* Needs own component for picking title based on categoryView. */}
           <h1>{categoryView}</h1> 
-          <ProvidersContainer providers={categoryProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
+          <ProvidersContainer providers={categoryProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView} setAddedProvider={setAddedProvider}/>
+          
         </> 
         : //Addsub
         <>
-          Här lägger vi till en specifik sub! Borde vara en egen modul där vi skickar ner subben.
+          <h2>{addedProvider.name}</h2>
+          <AddSubscriptionContainer services={addedProviderServices}/>
+          
         </>
       : profileView === "myAccount" ?
       <> 
