@@ -177,6 +177,7 @@ function App() {
         </> 
         : subscriptionsView === "category" ? 
         <>
+           <BackIcon setView={() => {setSubscriptionsView("search")}} />
           {/* Needs own component for picking title based on categoryView. */}
           <h1>{categoryView}</h1> 
           <ProvidersContainer providers={categoryProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView} setAddedProvider={setAddedProvider}/>
@@ -184,6 +185,7 @@ function App() {
         </> 
         : //Addsub
         <>
+          <BackIcon setView={() => {setSubscriptionsView("search")}} />
           <h2>{addedProvider.name}</h2>
           <AddSubscriptionContainer services={addedProviderServices} supabase={supabase}/>
           
