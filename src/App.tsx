@@ -93,6 +93,11 @@ function App() {
     setAddedProviderServices(newAddedProviderServices);
   },[addedProvider] )
 
+  useEffect(() => {
+    setView("home");
+
+  },[signedIn])
+
   async function getSubscriptions() {
     const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category, logo)))");
     if(data === null) setSubscriptions([]);
@@ -192,12 +197,11 @@ function App() {
         </>
       : profileView === "myAccount" ?
       <> 
-        <AccountSettingsContainer setProfileView={() => setProfileView("profile")} setNotificationsView={() => setProfileView("notifications")}/>
+        <AccountSettingsContainer supabase={supabase} setSignedIn={setSignedIn} setProfileView={() => setProfileView("profile")} setNotificationsView={() => setProfileView("notifications")}/>
       </>
       : profileView === "profile" ?
       <>
         <BackIcon setView={() => {setProfileView("myAccount")}} />
-        <h2>Det är profile</h2>
         <ProfileSettingsContainer currentEmail='Lägg till det email som används' currentPassword='Lägg till användarens lösenord?'/>
       </>
       :

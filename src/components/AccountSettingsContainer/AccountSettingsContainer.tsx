@@ -2,16 +2,20 @@ import SettingsButton from "../SettingsButton/SettingsButton";
 import rightArrow from "../../assets/icons/right-arrow.svg";
 import downArrow from "../../assets/icons/down-arrow.svg";
 import Button from "../Button/Button";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface AccountSettingsContainerProps {
     setProfileView: Function;
     setNotificationsView: Function;
+    supabase: SupabaseClient;
+    setSignedIn:Function;
 }
 
 const AccountSettingsContainer = (props:AccountSettingsContainerProps) => {
 
     const logoutFunction = () => {
-        console.log('Logout function here!');
+        props.supabase.auth.signOut();
+        props.setSignedIn(false);
     }
 
     return (
