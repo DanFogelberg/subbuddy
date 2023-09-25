@@ -36,6 +36,7 @@ function App() {
   const [subscriptions, setSubscriptions] = useState<Array<any>>([]); //Fix typescript
   const [providers, setProviders] = useState<Array<any>>([]); //Fix typescript
   const [topProviders, setTopProviders] = useState<Array<any>>([]);
+  const [categoryProviders, setCategoryProviders] = useState<Array<any>>([]);
   const [services, setServices] = useState<Array<any>>([]); //Fix typescript
   const [totalCost, setTotalCost] = useState<number>(0);
   const [streamingCost, setStreamingCost] = useState<number>(0);
@@ -58,13 +59,19 @@ function App() {
   useEffect(() => {
     getProviders();
     getServices();
-    //login();
-    //signup();
   }, []);
 
   useEffect(() => {
     calculateCosts();
   }, [subscriptions]);
+
+  useEffect(() => {
+    const newCategoryProviders:Array<any> = [];
+    providers.forEach((provider) => {
+      if(provider.category === categoryView) newCategoryProviders.push(provider);
+    })
+    setCategoryProviders(newCategoryProviders);
+  }, [categoryView])
 
   async function getSubscriptions() {
     const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category, logo)))");
@@ -146,7 +153,7 @@ function App() {
         <>
           {/* Needs own component for picking title based on categoryView. */}
           <h1>{categoryView}</h1> 
-          <ProvidersContainer providers={providers} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
+          <ProvidersContainer providers={categoryProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
         </> 
         : //Addsub
         <>
@@ -178,21 +185,7 @@ function App() {
 
 
 
-//Temporary fetch test function for Supabase. Will only get subscription for user because of Supabase RLS(Row Level Security)
-
-
-
-
-
-//Temporary sign up test function
-async function signup() {
-  const { data, error } = await supabase.auth.signUp({
-  email: 'example2@email.com',
-  password: 'example-password2',
-  })
-  console.log(data);
-}
-
+//Temporary test functions for Supabase. 
 //Temporary insert test function
 async function insert() {
   const { data, error } = await supabase.from("subscription").insert({
