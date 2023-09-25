@@ -18,6 +18,7 @@ import ProfileContainer from './components/AccountSettingsContainer/AccountSetti
 import BackIcon from './components/BackIcon/BackIcon';
 import AccountSettingsContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
 import ProfileSettingsContainer from './components/ProfileSettingsContainer/ProfileSettingsContainer';
+import NotificationsSettingsContainer from './components/NotificationsSettingsContainer/NotificationsSettingsContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -203,7 +204,7 @@ function App() {
       :
       <>
         <BackIcon setView={() => {setProfileView("myAccount")}} />
-        <h2>Det är notifications</h2>
+        <NotificationsSettingsContainer />
       </>
       }
       <Menu setView = {setView}/>
