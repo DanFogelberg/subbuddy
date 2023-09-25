@@ -43,7 +43,7 @@ function App() {
   const [paperCost, setPaperCost] = useState<number>(0);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
-  const [subscriptionsView, setSubscriptionsView] = useState<string>("search"); //Views on "subscriptions" page: allSubs categories search
+  const [subscriptionsView, setSubscriptionsView] = useState<string>("allSubs"); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
   const [profileView, setProfileView] = useState<string>("myAccount"); //Vies on "profile" page: myAccount, profile, notifications
@@ -128,6 +128,7 @@ function App() {
       : view === "subscriptions" ? 
         subscriptionsView === "allSubs" ? 
         <>
+          <AddSubscriptionIcon setSubscriptionsView={setSubscriptionsView}/>
           {subscriptions.map((subscription, id) => {
             return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={id}/>
           })}
@@ -136,7 +137,6 @@ function App() {
         : subscriptionsView === "search" ? 
         <>
           <h2>Kategorier</h2>
-          <AddSubscriptionIcon />
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
           <PopularSubscriptionsContainer topProviders={topProviders} supabase={supabase}/>
