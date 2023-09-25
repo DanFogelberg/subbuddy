@@ -11,6 +11,7 @@ import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/Up
 import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
 import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
+import PopularSubscriptionsContainer from './components/PopularSubscriptionsContainer/PopularSubscriptionsContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -136,10 +137,7 @@ function App() {
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
-          {topProviders.map((provider, id) => {
-            
-            return <AddSubscriptionCard key={id} title={provider.name} logo={provider.logo} supabase={supabase} />;
-          })}
+          <PopularSubscriptionsContainer topProviders={topProviders} supabase={supabase}/>
           
         </> 
         : subscriptionsView === "category" ? 
