@@ -174,7 +174,7 @@ function App() {
         : //Addsub
         <>
           <h2>{addedProvider.name}</h2>
-          <AddSubscriptionContainer services={addedProviderServices}/>
+          <AddSubscriptionContainer services={addedProviderServices} supabase={supabase}/>
           
         </>
       : profileView === "myAccount" ?
