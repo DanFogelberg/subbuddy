@@ -10,6 +10,7 @@ import StatisticsCard from './components/StatisticsCard/StatisticsCard';
 import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/UpcomingPaymentsContainer';
 import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
+import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -32,6 +33,7 @@ function App() {
   const [signedIn, setSignedIn] = useState(false);
   const [subscriptions, setSubscriptions] = useState<Array<any>>([]); //Fix typescript
   const [providers, setProviders] = useState<Array<any>>([]); //Fix typescript
+  const [topProviders, setTopProviders] = useState<Array<any>>([]);
   const [services, setServices] = useState<Array<any>>([]); //Fix typescript
   const [totalCost, setTotalCost] = useState<number>(0);
   const [streamingCost, setStreamingCost] = useState<number>(0);
@@ -39,7 +41,7 @@ function App() {
   const [paperCost, setPaperCost] = useState<number>(0);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
-  const [subscriptionsView, setSubscriptionsView] = useState<string>("allSubs"); //Views on "subscriptions" page: allSubs categories search
+  const [subscriptionsView, setSubscriptionsView] = useState<string>("search"); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
   const [profileView, setProfileView] = useState<string>("myAccount"); //Vies on "profile" page: myAccount, profile, notifications
@@ -65,15 +67,19 @@ function App() {
   async function getSubscriptions() {
     const { data } = await supabase.from("subscription").select("*, service(id, name, days_per_payment, cost, provider(id, name, category, logo)))");
     if(data === null) setSubscriptions([]);
-    else setSubscriptions(data); //Should get provider and service for each subscription
+    else setSubscriptions(data);
     console.log(data);
   }
 
   async function getProviders() {
     const { data } = await supabase.from("provider").select();
     if(data === null) setProviders([]);
-    else setProviders(data); //Should get provider and service for each subscription
+    else {
+      setProviders(data);
+      setTopProviders(data.slice(0,3)) //Not actually top providers right now. Providers fetch should be ordered in some way.
+    }
   }
+
 
   const calculateCosts = () => {
     let totalCost = 0;
@@ -130,6 +136,11 @@ function App() {
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
+          {topProviders.map((provider, id) => {
+            
+            return <AddSubscriptionCard key={id} title={provider.name} logo={provider.logo} supabase={supabase} />;
+          })}
+          
         </> 
         : subscriptionsView === "category" ? 
         <>
