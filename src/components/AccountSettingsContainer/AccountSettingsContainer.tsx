@@ -23,18 +23,18 @@ const AccountSettingsContainer = (props:AccountSettingsContainerProps) => {
             <h3>Mitt Konto</h3>
             <div className="flex flex-col gap-4 w-full">
                 <h4 className="self-start">Konto</h4>
-                <SettingsButton title="Profil" image={rightArrow} setView={props.setProfileView} />
-                <SettingsButton title="Notifikationer" image={rightArrow} setView={props.setNotificationsView} />
-                <SettingsButton title="Ljust/Mörkt läge" image={rightArrow} />
+                <SettingsButton title="Profil" indicator={rightArrow} setView={props.setProfileView} />
+                <SettingsButton title="Notifikationer" indicator={rightArrow} setView={props.setNotificationsView} />
+                <SettingsButton title="Ljust/Mörkt läge" indicator={rightArrow} />
             </div>
             <div className="flex flex-col gap-4 w-full">
                 <h4 className="self-start">Support</h4>
-                <SettingsButton title="Kundservice" image={rightArrow} />
+                <SettingsButton title="Kundservice" indicator={rightArrow} />
             </div>
             <div className="flex flex-col gap-4 w-full">
                 <h4 className="self-start">Dokument och Avtal</h4>
-                <SettingsButton title="Integritetspolicy" image={rightArrow} />
-                <SettingsButton title="Ladda ner användardata" image={downArrow} />
+                <SettingsButton title="Integritetspolicy" indicator={rightArrow} />
+                <SettingsButton title="Ladda ner användardata" indicator={downArrow} />
             </div>
             <Button title="Logga ut" clickFunction={logoutFunction}/>
         </section>
