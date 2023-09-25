@@ -11,7 +11,7 @@ import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/Up
 import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
 import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
-import PopularSubscriptionsContainer from './components/PopularSubscriptionsContainer/PopularSubscriptionsContainer';
+import ProvidersContainer from './components/ProvidersContainer/ProvidersContainer';
 import AddSubscriptionIcon from './components/AddSubscriptionIcon/AddSubscriptionIcon';
 
 async function runOneSignal() {
@@ -139,7 +139,7 @@ function App() {
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
-          <PopularSubscriptionsContainer topProviders={topProviders} supabase={supabase}/>
+          <ProvidersContainer providers={topProviders} supabase={supabase}/>
           
         </> 
         : subscriptionsView === "category" ? 
