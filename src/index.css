@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h3 {
+    @apply text-2xl
+  }
+  h4 {
+    @apply text-xl text-font_primary_gray font-semibold
+  }
+}
+
 :root {
   --color-background-bg-primary-white: #F9F8F7;
   --color-font-color-black: #070707;

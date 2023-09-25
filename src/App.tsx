@@ -14,6 +14,10 @@ import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptio
 import ProvidersContainer from './components/ProvidersContainer/ProvidersContainer';
 import AddSubscriptionIcon from './components/AddSubscriptionIcon/AddSubscriptionIcon';
 import AddSubscriptionContainer from './components/AddSubscriptionContainer/AddSubscriptionContainer';
+import ProfileContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
+import BackIcon from './components/BackIcon/BackIcon';
+import AccountSettingsContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
+import ProfileSettingsContainer from './components/ProfileSettingsContainer/ProfileSettingsContainer';
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -146,7 +150,6 @@ function App() {
 
   if(signedIn) return (
     <>
-      <h1>Subbuddy</h1>
       {view ===  "home" ? <>
         <MonthlyCostCard totalCost = {totalCost}/>
         <UpcomingPaymentsContainer subscriptions = {subscriptions} supabase = {supabase}/>
@@ -165,6 +168,7 @@ function App() {
         </>  
         : subscriptionsView === "search" ? 
         <>
+          <BackIcon setView={() => {setSubscriptionsView("allSubs")}} />
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
@@ -186,17 +190,17 @@ function App() {
         </>
       : profileView === "myAccount" ?
       <> 
-        <h2 onClick = {() => setProfileView("profile")}>profajl</h2>
-        <h2 onClick = {() => setProfileView("notifications")}>notifications</h2>
+        <AccountSettingsContainer setProfileView={() => setProfileView("profile")} setNotificationsView={() => setProfileView("notifications")}/>
       </>
       : profileView === "profile" ?
       <>
-        <h2 onClick = {() => setProfileView("myAccount")}>Back</h2>
+        <BackIcon setView={() => {setProfileView("myAccount")}} />
         <h2>Det är profile</h2>
+        <ProfileSettingsContainer currentEmail='Lägg till det email som används' currentPassword='Lägg till användarens lösenord?'/>
       </>
       :
       <>
-        <h2 onClick = {() => setProfileView("myAccount")}>Back</h2>
+        <BackIcon setView={() => {setProfileView("myAccount")}} />
         <h2>Det är notifications</h2>
       </>
       }
