@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 
 interface ActiveSubscrionCardProps{
     subscription:{
+        cost:number|undefined;
         service:{
-            name:string
-            cost:number
+            name:string;
+            cost:number;
             provider:{
-                name:string
-                logo:string
+                name:string;
+                logo:string;
             }
         }
     }
@@ -34,7 +35,7 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
                 </div>
             </div>
             <div className="text-right">
-                <p className="font-semibold">{props.subscription.service.cost} kr</p>
+                <p className="font-semibold">{props.subscription.cost ? props.subscription.cost : props.subscription.service.cost} kr</p>
                 <p className="text-xs font-medium">1 månad</p>
             </div>
         </article>

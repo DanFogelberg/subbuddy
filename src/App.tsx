@@ -116,10 +116,17 @@ function App() {
       let date = new Date(subscription.next_payment);
       while(date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() && date.getDate() > today.getDate()) //What to do when date has passed?
       {
-        totalCost += subscription.service.cost;
-        if(subscription.service.provider.category === "streaming") streamingCost += subscription.service.cost;
-        else if(subscription.service.provider.category === "music") musicCost += subscription.service.cost;
-        else if(subscription.service.provider.category === "paper") paperCost += subscription.service.cost; //Fix!
+        let cost = 0;
+        if(subscription.cost) {
+          cost = subscription.cost;
+        }else {
+          cost = subscription.service.cost;
+        }
+
+        totalCost += cost;
+        if(subscription.service.provider.category === "streaming") streamingCost += cost;
+        else if(subscription.service.provider.category === "music") musicCost += cost;
+        else if(subscription.service.provider.category === "paper") paperCost += cost; //Fix!
         date.setDate(date.getDate() + subscription.service.days_per_payment);
       }
       setTotalCost(totalCost);
@@ -198,21 +205,6 @@ function App() {
   )
 
   return (<LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions}/>)
-}
-
-
-
-
-//Temporary test functions for Supabase. 
-//Temporary insert test function
-async function insert() {
-  const { data, error } = await supabase.from("subscription").insert({
-  user_id: ((await supabase.auth.getUser()).data.user?.id) ,
-  service_id: 1,
-  next_payment: "2000-01-01"
-  })
-  console.log(data);
-  console.log(error);
 }
 
 
