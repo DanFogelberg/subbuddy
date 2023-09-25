@@ -139,12 +139,14 @@ function App() {
           <h2>Kategorier</h2>
           <CategoriesContainer setCategoryView = {setCategoryView} setSubscriptionsView = {setSubscriptionsView}/>
           <h2>Populära subs</h2>
-          <ProvidersContainer providers={topProviders} supabase={supabase}/>
+          <ProvidersContainer providers={topProviders} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
           
         </> 
         : subscriptionsView === "category" ? 
         <>
-          <p onClick = {() => {setSubscriptionsView("addSubscription")}}>Här är den specifika kategorin: {categoryView}. Tjohej! .map och kolla kategori.</p>
+          {/* Needs own component for picking title based on categoryView. */}
+          <h1>{categoryView}</h1> 
+          <ProvidersContainer providers={providers} supabase={supabase} setSubscriptionsView={setSubscriptionsView}/>
         </> 
         : //Addsub
         <>
