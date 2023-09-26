@@ -19,6 +19,8 @@ import BackIcon from './components/BackIcon/BackIcon';
 import AccountSettingsContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
 import ProfileSettingsContainer from './components/ProfileSettingsContainer/ProfileSettingsContainer';
 import NotificationsSettingsContainer from './components/NotificationsSettingsContainer/NotificationsSettingsContainer';
+import CreateAccountForm from './components/CreateAccountForm/CreateAccountForm';
+
 
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba'});
@@ -57,6 +59,7 @@ function App() {
   const [addedProviderServices, setAddedProviderServices] = useState<Array<Provider>>([]);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
+  const [loginView, setLoginView] = useState<string>("login"); //login, createAccount
   const [subscriptionsView, setSubscriptionsView] = useState<string>("allSubs"); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(""); //Sets content on subscriptions category page: streaming, paper, music
 
@@ -214,8 +217,12 @@ function App() {
       <Menu setView = {setView}/>
     </>
   )
-
-  return (<LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions}/>)
+  //If not signed in
+  return (
+    loginView === "login" ? 
+      <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} setLoginView={setLoginView}/>
+    : //createAccount view.
+      <CreateAccountForm supabase={supabase} setLoginView={setLoginView}></CreateAccountForm>)
 }
 
 
