@@ -2,6 +2,7 @@ import SettingsButton from "../SettingsButton/SettingsButton";
 import rightArrow from "../../assets/icons/right-arrow.svg";
 import downArrow from "../../assets/icons/down-arrow.svg";
 import Button from "../Button/Button";
+import SwitchIcon from "../SwitchIcon/SwitchIcon";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 interface AccountSettingsContainerProps {
@@ -26,7 +27,7 @@ const AccountSettingsContainer = (props:AccountSettingsContainerProps) => {
                 <h4 className="self-start">Konto</h4>
                 <SettingsButton title="Profil" indicator={rightArrow} setView={props.setProfileView} />
                 <SettingsButton title="Notifikationer" indicator={rightArrow} setView={props.setNotificationsView} />
-                <SettingsButton title="Ljust/Mörkt läge" indicator={rightArrow} />
+                <SettingsButton title="Ljust/Mörkt läge" indicator={<SwitchIcon />} />
             </div>
             <div className="flex flex-col gap-4 w-full">
                 <h4 className="self-start">Support</h4>
