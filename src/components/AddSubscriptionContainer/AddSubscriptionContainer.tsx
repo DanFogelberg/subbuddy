@@ -7,8 +7,9 @@ import ServicesOptions from "../ServicesOptions/ServicesOptions";
 import { useState } from "react";
 
 interface AddSubscriptionContainerProps {
-    services: Array<any>;
-    supabase: SupabaseClient;
+    services:Array<any>;
+    supabase:SupabaseClient;
+    getSubscriptions:Function;
 }
 
 interface InsertData {
@@ -19,17 +20,8 @@ interface InsertData {
 }
 
 
-//  async function insert() {
-const handleSubmit = async (supabase:SupabaseClient, serviceId:number, nextPayment:string, cost:number|undefined = undefined) => {
-    const insertData:InsertData = {
-        user_id: ((await supabase.auth.getUser()).data.user?.id) ,
-        service_id: serviceId,
-        next_payment: nextPayment,
-        cost: null
-        };
-    if(cost) insertData.cost = cost;
-    const { data, error } = await supabase.from("subscription").insert(insertData);
-}
+
+
 
 
 const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
@@ -37,13 +29,26 @@ const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
     const [nextPayment, setNextPayment] = useState<string>("");
     const [cost, setCost] = useState<number|undefined>();
 
+    const handleSubmit = async (serviceId:number, nextPayment:string, cost:number|undefined = undefined) => {
+        const insertData:InsertData = {
+            user_id: ((await props.supabase.auth.getUser()).data.user?.id) ,
+            service_id: serviceId,
+            next_payment: nextPayment,
+            cost: null
+            };
+        if(cost) insertData.cost = cost;
+        const { data, error } = await props.supabase.from("subscription").insert(insertData);
+        await props.getSubscriptions();
+        
+    }
+
     return (
         <section>
             <h2>Lägg till</h2>
             <AddSubscriptionButton title="Typ av abonemang" component={<ServicesOptions services={props.services} setServiceId={setServiceId} />} />
             <AddSubscriptionButton title="Betalningstillfällen" component={<PaymentDateOptions setNextPayment={setNextPayment}/>} />
             <AddSubscriptionInput setCost={setCost}/>
-            <Button title="Lägg till sub!" clickFunction={async () => {await handleSubmit(props.supabase, serviceId, nextPayment, cost)}}/>
+            <Button title="Lägg till sub!" clickFunction={async () => {await handleSubmit(serviceId, nextPayment, cost)}}/>
         </section>
     );
 }

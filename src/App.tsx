@@ -198,7 +198,7 @@ function App() {
         <>
           <BackIcon setView={() => {setSubscriptionsView("search")}} />
           <h2>{addedProvider.name}</h2>
-          <AddSubscriptionContainer services={addedProviderServices} supabase={supabase}/>
+          <AddSubscriptionContainer services={addedProviderServices} supabase={supabase} getSubscriptions={getSubscriptions}/>
           
         </>
       : profileView === "myAccount" ?
