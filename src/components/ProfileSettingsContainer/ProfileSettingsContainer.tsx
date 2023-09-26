@@ -12,6 +12,8 @@ interface ProfileSettingsContainerProps {
 const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props) => {
   const [currentEmail, setEmail] = useState(props.currentEmail);
   const [currentPassword, setPassword] = useState(props.currentPassword);
+  const [previousEmail, setPreviousEmail] = useState('');
+  const [previousPassword, setPreviousPassword] = useState('');
   const [isEmailEditable, setIsEmailEditable] = useState(false);
   const [isPasswordEditable, setIsPasswordEditable] = useState(false);
 
@@ -20,14 +22,25 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
 
   const checkIfEmailIsEditable = () => {
     setIsEmailEditable(!isEmailEditable);
-    setEmail('');
-    emailInputRef.current?.focus();
+    if (!isEmailEditable) {
+        setPreviousEmail(currentEmail);
+        setEmail('');
+        emailInputRef.current?.focus();
+        console.log(isEmailEditable);
+    } else {
+        setEmail(previousEmail);
+    }
   }
 
   const checkIfPasswordIsEditable = () => {
     setIsPasswordEditable(!isPasswordEditable);
-    setPassword('');
-    passwordInputRef.current?.focus();
+    if (!isPasswordEditable) {
+        setPreviousPassword(currentPassword);
+        setPassword('');
+        passwordInputRef.current?.focus();
+    } else {
+        setPassword(previousPassword);
+    }
   }
 
   const handleEmailEdit = (e:ChangeEvent<HTMLInputElement>) => {
