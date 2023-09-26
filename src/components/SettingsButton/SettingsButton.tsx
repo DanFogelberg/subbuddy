@@ -2,6 +2,7 @@ interface SettingsButtonProps {
     title: string;
     indicator?: string | React.ReactNode;
     setView?: Function;
+    clickFunction?: Function;
   }
   
   const SettingsButton = (props: SettingsButtonProps) => {
@@ -12,7 +13,7 @@ interface SettingsButtonProps {
       >
         <p>{props.title}</p>
         {typeof props.indicator === 'string' ? (
-          <img src={props.indicator} alt="Icon of an arrow" />
+          <img src={props.indicator} alt="Icon of an arrow" onClick={() => {props.clickFunction && props.clickFunction()}} />
         ) : (
           props.indicator
         )}
