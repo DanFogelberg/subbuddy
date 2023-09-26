@@ -174,7 +174,7 @@ function App() {
         <>
           <AddSubscriptionIcon setSubscriptionsView={setSubscriptionsView}/>
           {subscriptions.map((subscription, id) => {
-            return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={id}/>
+            return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={subscription.id} subscriptions={subscriptions} setSubscriptions={setSubscriptions}/>
           })}
         </>  
         : subscriptionsView === "search" ? 

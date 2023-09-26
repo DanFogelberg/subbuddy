@@ -1,21 +1,27 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useState, useEffect } from 'react';
+import Button from '../Button/Button';
 
 
-interface ActiveSubscrionCardProps{
-    subscription:{
-        cost:number|undefined;
-        service:{
+interface Subscription{
+    id:string;       
+    cost:number|undefined;
+    service:{
+        name:string;
+        cost:number;
+        provider:{
             name:string;
-            cost:number;
-            provider:{
-                name:string;
-                logo:string;
-            }
+            logo:string;
         }
     }
 
-    supabase:SupabaseClient
+}
+
+interface ActiveSubscrionCardProps{
+    subscription:Subscription;
+    subscriptions:Array<Subscription>;
+    supabase:SupabaseClient;
+    setSubscriptions:Function;
 }
 const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
     const normalHeight = "h-[100px] ";
@@ -34,6 +40,21 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
         setImageUrl(imageUrlData.data.publicUrl);
     }, [])
 
+    const deleteSubscription = () => {
+        console.log(props.subscription.id);
+        props.supabase.from("subscription").delete().match({"id": props.subscription.id}).then((result)=>{
+            const newSubscriptions = props.subscriptions;
+            const deletedIndex = newSubscriptions.findIndex((subscription) =>{
+                if(subscription.id === props.subscription.id) return true;
+                else return false;
+            })
+            newSubscriptions.splice(deletedIndex, 1);
+            console.log(newSubscriptions);
+            props.setSubscriptions([]);
+            props.setSubscriptions([...newSubscriptions]);
+        });
+        
+    }
 
     const show = () => {
         if(showMore === false)
@@ -68,7 +89,11 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
                     <p className="text-xs font-medium">1 månad</p>
                 </div>
             </div>
-            {showMore ? <h1 onClick={() => hide()}>Close X</h1> : <></>}
+            {showMore ? <>
+                <Button clickFunction={() => deleteSubscription()} title={"Ta bort prenumeration"}/>
+                <h1 onClick={() => hide()}>Close X</h1>
+            </>
+                : <></>}
         </article>
     )
 }
