@@ -42,7 +42,7 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
 
     const deleteSubscription = () => {
         console.log(props.subscription.id);
-        props.supabase.from("subscription").delete().match({"id": props.subscription.id}).then((result)=>{
+        props.supabase.from("subscription").delete().match({"id": props.subscription.id}).then(()=>{
             const newSubscriptions = props.subscriptions;
             const deletedIndex = newSubscriptions.findIndex((subscription) =>{
                 if(subscription.id === props.subscription.id) return true;

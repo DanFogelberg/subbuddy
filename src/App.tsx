@@ -173,7 +173,7 @@ function App() {
         subscriptionsView === "allSubs" ? 
         <>
           <AddSubscriptionIcon setSubscriptionsView={setSubscriptionsView}/>
-          {subscriptions.map((subscription, id) => {
+          {subscriptions.map((subscription) => {
             return <ActiveSubscriptionCard subscription={subscription} supabase={supabase} key={subscription.id} subscriptions={subscriptions} setSubscriptions={setSubscriptions}/>
           })}
         </>  
