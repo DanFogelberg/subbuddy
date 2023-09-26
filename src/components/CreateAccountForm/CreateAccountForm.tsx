@@ -9,11 +9,9 @@ interface CreateAccountProps {
     setLoginView:Function;
     setShowIntegrityPolicy:Function;
 }
-
 const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
-
 
     const createAccount = (user:string, password:string) => {
         console.log(user, password);
@@ -24,9 +22,9 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
             console.log(response);
             if(!response.error)
             {
-                console.log("lög")
                 props.setLoginView("login");
             }else {
+                //Show error somehow
                 console.log("Errorz");
             }
         });
