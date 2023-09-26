@@ -20,6 +20,7 @@ import AccountSettingsContainer from './components/AccountSettingsContainer/Acco
 import ProfileSettingsContainer from './components/ProfileSettingsContainer/ProfileSettingsContainer';
 import NotificationsSettingsContainer from './components/NotificationsSettingsContainer/NotificationsSettingsContainer';
 import CreateAccountForm from './components/CreateAccountForm/CreateAccountForm';
+import IntegrityPolicy from './components/IntegrityPolicy/IntegrityPolicy';
 
 
 async function runOneSignal() {
@@ -57,6 +58,7 @@ function App() {
   const [paperCost, setPaperCost] = useState<number>(0);
   const [addedProvider, setAddedProvider] = useState<Provider>({name: "", id: 0});
   const [addedProviderServices, setAddedProviderServices] = useState<Array<Provider>>([]);
+  const [showIntegrityPolicy, setShowIntegrityPolicy] = useState<boolean>(false);
   
   const [view, setView] = useState<string>("home"); //Limit options here  "home" "subscriptions" "profile"
   const [loginView, setLoginView] = useState<string>("login"); //login, createAccount
@@ -155,7 +157,7 @@ function App() {
     else setServices(data); 
   }
 
-  
+  if(showIntegrityPolicy) return (<IntegrityPolicy setShowIntegrityPolicy={setShowIntegrityPolicy}/>)
 
   if(signedIn) return (
     <>
@@ -201,7 +203,7 @@ function App() {
         </>
       : profileView === "myAccount" ?
       <> 
-        <AccountSettingsContainer supabase={supabase} setSignedIn={setSignedIn} setProfileView={() => setProfileView("profile")} setNotificationsView={() => setProfileView("notifications")}/>
+        <AccountSettingsContainer supabase={supabase} setSignedIn={setSignedIn} setProfileView={() => setProfileView("profile")} setNotificationsView={() => setProfileView("notifications")} setShowIntegrityPolicy={setShowIntegrityPolicy}/>
       </>
       : profileView === "profile" ?
       <>
@@ -220,9 +222,9 @@ function App() {
   //If not signed in
   return (
     loginView === "login" ? 
-      <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} setLoginView={setLoginView}/>
+      <LoginForm supabase = {supabase} setSignedIn = {setSignedIn} getSubscriptions = {getSubscriptions} setLoginView={setLoginView} setShowIntegrityPolicy={setShowIntegrityPolicy}/>
     : //createAccount view.
-      <CreateAccountForm supabase={supabase} setLoginView={setLoginView}></CreateAccountForm>)
+      <CreateAccountForm supabase={supabase} setLoginView={setLoginView} setShowIntegrityPolicy={setShowIntegrityPolicy}></CreateAccountForm>)
 }
 
 

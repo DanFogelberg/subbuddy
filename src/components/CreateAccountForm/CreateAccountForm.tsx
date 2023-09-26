@@ -7,6 +7,7 @@ import checkboxArrow from '../../assets/icons/checkbox-arrow.svg';
 interface CreateAccountProps {
     supabase:SupabaseClient;
     setLoginView:Function;
+    setShowIntegrityPolicy:Function;
 }
 
 const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
@@ -51,6 +52,7 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
             </div>
         </form>
         <p onClick={() => props.setLoginView("login")}>Har du redan ett konto? Logga in</p>
+        <p onClick={() => props.setShowIntegrityPolicy("true")}>Läs SubBuds integritetspolicy</p>
         </>
     );
     

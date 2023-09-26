@@ -9,6 +9,7 @@ interface LoginProps {
     setSignedIn:Function;
     getSubscriptions:Function;
     setLoginView:Function;
+    setShowIntegrityPolicy:Function;
 }
 
 const LoginForm:React.FC<LoginProps> = (props) => {
@@ -53,6 +54,8 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                 <Button title="Skapa konto" clickFunction = {() => props.setLoginView("createAccount")}type="button"/>
             </div>
         </form>
+        <p onClick={() => props.setLoginView("login")}>Har du redan ett konto? Logga in</p>
+        <p onClick={() => props.setShowIntegrityPolicy("true")}>Läs SubBuds integritetspolicy</p>
         </>
     );
     

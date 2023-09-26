@@ -9,6 +9,7 @@ interface AccountSettingsContainerProps {
     setNotificationsView: Function;
     supabase: SupabaseClient;
     setSignedIn:Function;
+    setShowIntegrityPolicy:Function;
 }
 
 const AccountSettingsContainer = (props:AccountSettingsContainerProps) => {
@@ -33,7 +34,7 @@ const AccountSettingsContainer = (props:AccountSettingsContainerProps) => {
             </div>
             <div className="flex flex-col gap-4 w-full">
                 <h4 className="self-start">Dokument och Avtal</h4>
-                <SettingsButton title="Integritetspolicy" indicator={rightArrow} />
+                <SettingsButton title="Integritetspolicy" indicator={rightArrow} setView={() => props.setShowIntegrityPolicy("true")}/>
                 <SettingsButton title="Ladda ner användardata" indicator={downArrow} />
             </div>
             <Button title="Logga ut" clickFunction={logoutFunction}/>
