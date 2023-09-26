@@ -208,7 +208,7 @@ function App() {
       : profileView === "profile" ?
       <>
         <BackIcon setView={() => {setProfileView("myAccount")}} />
-        <ProfileSettingsContainer currentEmail='Lägg till det email som används' currentPassword='Lägg till användarens lösenord?'/>
+        <ProfileSettingsContainer  supabase={supabase}/>
       </>
       :
       <>

@@ -1,17 +1,22 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import SettingsButton from '../SettingsButton/SettingsButton';
 import pencilIcon from '../../assets/icons/pencil-icon.svg';
 import Button from '../Button/Button';
 import SettingsButtonInput from '../SettingsButtonInput/SettingsButtonInput';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 interface ProfileSettingsContainerProps {
-  currentEmail: string;
-  currentPassword: string;
+  supabase:SupabaseClient;
+}
+
+interface UserData{
+  email?:string;
+  password?:string;
 }
 
 const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props) => {
-  const [currentEmail, setEmail] = useState(props.currentEmail);
-  const [currentPassword, setPassword] = useState(props.currentPassword);
+  const [currentEmail, setEmail] = useState('');
+  const [currentPassword, setPassword] = useState('********');
   const [previousEmail, setPreviousEmail] = useState('');
   const [previousPassword, setPreviousPassword] = useState('');
   const [isEmailEditable, setIsEmailEditable] = useState(false);
@@ -19,6 +24,14 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    props.supabase.auth.getUser().then((result) => {
+      if(result.data.user != null && result.data.user.email != null) setEmail(result.data.user.email);
+    })
+
+
+  },[])
 
   const checkIfEmailIsEditable = () => {
     setIsEmailEditable(!isEmailEditable);
@@ -57,6 +70,13 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
 
   const saveChanges = () => {
     console.log('Ändringar sparade!');
+    const newUserData:UserData={};
+    if(currentEmail != previousEmail) newUserData.email = currentEmail;
+    if(currentPassword != '********') newUserData.password = currentPassword;
+
+
+    props.supabase.auth.getUser().then((result)=>{console.log(result)});
+    if(newUserData.email != undefined || newUserData.password != undefined) props.supabase.auth.updateUser(newUserData).then((result)=> console.log(result))
   };
 
   return (
