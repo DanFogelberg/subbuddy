@@ -30,9 +30,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* Define default colors using CSS variables */
   --color-background: var(--color-background-bg-primary-white);
   --color-font: var(--color-font-color-black);
+  --color-icons: var(--color-stroke-black);
 
   color: var(--color-font);
   background-color: var(--color-background);
