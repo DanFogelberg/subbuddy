@@ -1,21 +1,27 @@
+/* Use Tailwind CSS directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Define base styles for h3 and h4 */
 @layer base {
   h3 {
-    @apply text-2xl
+    @apply text-2xl;
   }
   h4 {
-    @apply text-xl text-font_primary_gray font-semibold
+    @apply text-xl text-font_primary_gray font-semibold;
   }
 }
 
 :root {
-  --color-background-bg-primary-white: #F9F8F7;
+  --color-background-primary-white: #F9F8F7;
+  --color-background-primary-black: #121212;
+  --color-widget-background-white: #FFFFFF;
+  --color-widget-background-black: #383838;
   --color-font-color-black: #070707;
-  --color-font-color-white: #FFF;
+  --color-font-color-white: #FFFFFF;
   --color-font-color-gray: #515356;
+  --color-font-color-subtle: #ACACAC;
   --color-button-primary-black: #070707;
   --color-button-primary-orange: #FFDFB6;
   --color-button-primary-orange-pressed: #FFB85E;
@@ -24,14 +30,28 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: var(--color-font-color-black);
-  background-color: var(--color-background-bg-primary-white);
+  /* Define default colors using CSS variables */
+  --color-background: var(--color-background-bg-primary-white);
+  --color-font: var(--color-font-color-black);
+
+  color: var(--color-font);
+  background-color: var(--color-background);
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
+.dark {
+  --color-background: var(--color-background-primary-black);
+  --color-font: var(--color-font-color-white);
+}
+
 body {
   margin: 0;
+}
+
+.your-component-class {
+  background-color: var(--color-background);
+  color: var(--color-font);
 }

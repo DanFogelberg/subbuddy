@@ -75,7 +75,7 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
 
 
     return (
-        <article onClick={() => show()} className={height + backgroundColor + " text-font_primary_black rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all "}>
+        <article onClick={() => show()} className={height + backgroundColor + " text-font_primary_black rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all"}>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-4'>
                     <img className='w-[50px] h-[50px] rounded-[5px]' src={imageUrl} alt="Image of the logo." />
@@ -90,7 +90,10 @@ const ActiveSubscriptionCard = (props:ActiveSubscrionCardProps) => {
                 </div>
             </div>
             {showMore ? <>
-                <Button clickFunction={() => deleteSubscription()} title={"Ta bort prenumeration"}/>
+                <Button 
+                    clickFunction={() => deleteSubscription()}
+                    title={"Ta bort prenumeration"}
+                    backgroundColor="bg-button_primary_black"/>
                 <h1 onClick={() => hide()}>Close X</h1>
             </>
                 : <></>}

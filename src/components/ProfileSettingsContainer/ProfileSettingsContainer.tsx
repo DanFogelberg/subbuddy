@@ -81,26 +81,32 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
 
   return (
     <section className="flex flex-col gap-8 w-full items-center">
-      <h3>Profil</h3>
-      <div className="flex flex-col gap-4 w-full">
-        <h4 className="self-start">Email</h4>
-        <SettingsButtonInput 
-            title={currentEmail}
-            icon={pencilIcon}
-            inputRef={emailInputRef}
-            clickFunction={checkIfEmailIsEditable}
-            onChangeFunction={handleEmailEdit}/>
-      </div>
-      <div className="flex flex-col gap-4 w-full">
-        <SettingsButtonInput 
-            title={currentPassword}
-            icon={pencilIcon}
-            inputRef={passwordInputRef}
-            clickFunction={checkIfPasswordIsEditable}
-            onChangeFunction={handlePasswordEdit}/>
-        <h4 className="self-start">Lösenord</h4>
-      </div>
-      <Button title="Spara ändringar" clickFunction={saveChanges} />
+        <h3>Profil</h3>
+        <div className="flex flex-col gap-4 w-full">
+            <h4 className="self-start">Email</h4>
+            <SettingsButtonInput 
+                title={currentEmail}
+                icon={pencilIcon}
+                inputRef={emailInputRef}
+                clickFunction={checkIfEmailIsEditable}
+                onChangeFunction={handleEmailEdit}
+            />
+        </div>
+        <div className="flex flex-col gap-4 w-full">
+            <SettingsButtonInput 
+                title={currentPassword}
+                icon={pencilIcon}
+                inputRef={passwordInputRef}
+                clickFunction={checkIfPasswordIsEditable}
+                onChangeFunction={handlePasswordEdit}
+            />
+            <h4 className="self-start">Lösenord</h4>
+        </div>
+        <Button 
+            backgroundColor='bg-button_primary_orange'
+            title="Spara ändringar"
+            clickFunction={saveChanges}
+        />
     </section>
   );
 };

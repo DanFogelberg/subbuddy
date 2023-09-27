@@ -50,8 +50,13 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                 <img className="absolute w-2.5 h-2.5 pointer-events-none top-[19%] left-[2.5%] hidden peer-checked:block" src={checkboxArrow} alt="Checkbox arrow." />
             </div>
             <div className="flex flex-col items-center gap-4 w-full">
-                <Button title="Logga in" clickFunction = {() => signIn(user, password)} type= "button"/>
-                <Button title="Skapa konto" clickFunction = {() => props.setLoginView("createAccount")}type="button"/>
+                <Button 
+                    title="Logga in"
+                    clickFunction = {() => signIn(user, password)}
+                    type= "button"
+                    backgroundColor="bg-button_primary_black"/>
+                <Button 
+                    title="Skapa konto" clickFunction = {() => props.setLoginView("createAccount")}type="button" backgroundColor="bg-button_primary_orange"/>
             </div>
         </form>
         <p onClick={() => props.setLoginView("login")}>Har du redan ett konto? Logga in</p>

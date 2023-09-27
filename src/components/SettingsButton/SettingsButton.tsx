@@ -8,7 +8,7 @@ interface SettingsButtonProps {
   const SettingsButton = (props: SettingsButtonProps) => {
     return (
       <div
-        className="bg-font_primary_white flex justify-between items-center rounded-[10px] w-full shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] p-4"
+        className="bg-widget_primary_white flex justify-between items-center rounded-[10px] w-full shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] p-4 dark:bg-widget_primary_black"
         onClick={() => props.setView && props.setView()}
       >
         <p>{props.title}</p>

@@ -48,7 +48,11 @@ const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
             <AddSubscriptionButton title="Typ av abonemang" component={<ServicesOptions services={props.services} setServiceId={setServiceId} />} />
             <AddSubscriptionButton title="Betalningstillfällen" component={<PaymentDateOptions setNextPayment={setNextPayment}/>} />
             <AddSubscriptionInput setCost={setCost}/>
-            <Button title="Lägg till sub!" clickFunction={async () => {await handleSubmit(serviceId, nextPayment, cost)}}/>
+            <Button 
+                title="Lägg till sub!"
+                clickFunction={async () => {await handleSubmit(serviceId, nextPayment, cost)}}
+                backgroundColor="bg-button_primary_orange"
+            />
         </section>
     );
 }
