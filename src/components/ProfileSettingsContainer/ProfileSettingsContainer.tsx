@@ -111,7 +111,9 @@ const ProfileSettingsContainer: React.FC<
 
   return (
     <section className="flex flex-col gap-8 w-full items-center">
-      <h3>Profil</h3>
+      <h2 className={'w-full text-left text-2xl font-bold mb-4 font-inter'}>
+        Profil
+      </h2>
       <div className="flex flex-col gap-4 w-full">
         <h4 className="self-start dark:text-font_primary_subtle">Email</h4>
         <SettingsButtonInput
@@ -122,6 +124,7 @@ const ProfileSettingsContainer: React.FC<
           onChangeFunction={handleEmailEdit}
         />
       </div>
+      <h4 className="self-start dark:text-font_primary_subtle">Lösenord</h4>
       <div className="flex flex-col gap-4 w-full">
         <SettingsButtonInput
           title={currentPassword}
@@ -130,7 +133,6 @@ const ProfileSettingsContainer: React.FC<
           clickFunction={checkIfPasswordIsEditable}
           onChangeFunction={handlePasswordEdit}
         />
-        <h4 className="self-start dark:text-font_primary_subtle">Lösenord</h4>
       </div>
       <Button
         backgroundColor="bg-button_primary_orange"

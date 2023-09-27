@@ -4,7 +4,9 @@ import SettingsButton from '../SettingsButton/SettingsButton';
 const NotificationsSettingsContainer = () => {
   return (
     <section className="flex flex-col gap-8 w-full items-center">
-      <h3>Notifikationer</h3>
+      <h2 className={'w-full text-left text-2xl font-bold mb-4 font-inter'}>
+        Notifikationer
+      </h2>
       <div className="flex flex-col gap-4 w-full">
         <h4 className="self-start dark:text-font_primary_subtle">
           Push-notifikationer

@@ -8,7 +8,7 @@ interface SettingsButtonInputProps {
 
 const SettingsButtonInput = (props: SettingsButtonInputProps) => {
   return (
-    <div className="bg-font_primary_white flex justify-between items-center rounded-[10px] w-full shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] p-4 dark:bg-widget_primary_black">
+    <div className="bg-font_primary_white flex justify-between items-center rounded-[10px] w-full shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] p-4 dark:bg-widget_primary_black font-medium">
       <input
         className="w-full outline-none dark:bg-widget_primary_black"
         type="text"

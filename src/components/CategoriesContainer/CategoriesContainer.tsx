@@ -13,7 +13,7 @@ interface CategoriesContainerProps {
 
 const CategoriesContainer = (props: CategoriesContainerProps) => {
   return (
-    <section className="flex overflow-y-hidden overflow-x-auto gap-3 whitespace-nowrap mr-[-1.5rem]">
+    <section className="flex overflow-y-hidden overflow-x-auto gap-3 whitespace-nowrap mr-[-1.5rem] mb-8 ">
       <CategoryCard
         title="Mat & dryck"
         src={espressoHouseLogo}

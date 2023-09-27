@@ -208,6 +208,9 @@ function App() {
               <AddSubscriptionIcon
                 setSubscriptionsView={setSubscriptionsView}
               />
+              <h3 className=" w-full text-left text-xl font-semibold mb-4">
+                Alla subs
+              </h3>
               {subscriptions.map(subscription => {
                 return (
                   <ActiveSubscriptionCard
@@ -227,12 +230,16 @@ function App() {
                   setSubscriptionsView('allSubs');
                 }}
               />
-              <h2>Kategorier</h2>
+              <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
+                Kategorier
+              </h3>
               <CategoriesContainer
                 setCategoryView={setCategoryView}
                 setSubscriptionsView={setSubscriptionsView}
               />
-              <h2>Populära subs</h2>
+              <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
+                Populära subs
+              </h3>
               <ProvidersContainer
                 providers={topProviders}
                 supabase={supabase}
@@ -248,7 +255,9 @@ function App() {
                 }}
               />
               {/* Needs own component for picking title based on categoryView. */}
-              <h1>{categoryView}</h1>
+              <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
+                {categoryView}
+              </h3>
               <ProvidersContainer
                 providers={categoryProviders}
                 supabase={supabase}

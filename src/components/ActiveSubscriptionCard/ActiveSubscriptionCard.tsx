@@ -78,7 +78,7 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
       className={
         height +
         backgroundColor +
-        'text-font_primary_black rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all'
+        'text-font_primary_black rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all mb-3'
       }
     >
       <div className="flex justify-between items-center">
