@@ -51,7 +51,7 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
             <label htmlFor="password">Lösenord</label>
             <input className="border-b-[1px] bg-transparent w-full" type="password" name="password" onChange = {handlePasswordChange} required/>
             <div className="flex flex-col items-center gap-4 w-full">
-                <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button"/>
+                <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button" backgroundColor="bg-button_primary_orange"/>
             </div>
         </form>
         {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
