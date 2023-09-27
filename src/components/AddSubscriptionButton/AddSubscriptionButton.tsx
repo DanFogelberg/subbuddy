@@ -15,9 +15,9 @@ const AddSubscriptionButton: React.FC<AddSubscriptionButtonProps> = (props) => {
 
     return(
         <div className='flex flex-col gap-4'>
-            <div className="bg-font_primary_white flex justify-between items-center py-2 px-4 shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] rounded-[26px]" onClick={showDropDown}>
+            <div className="bg-widget_primary_white flex justify-between items-center py-2 px-4 shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] rounded-[26px] dark:bg-widget_primary_black" onClick={showDropDown}>
                 <p>{props.title}</p>
-                <img className='h-[5px] w-2.5' src={downArrow} alt="Arrow pointing down." />
+                <img className='h-[5px] w-2.5 dark:invert' src={downArrow} alt="Arrow pointing down." />
             </div>
             {dropDownActive && props.component}
         </div>

@@ -7,7 +7,7 @@ interface BackIconProps {
 const BackIcon = (props:BackIconProps) => {
     return (
         <div className='mb-4' onClick={() => props.setView && props.setView()}>
-            <img src={backArrow} alt="Back arrow icon." />
+            <img className='dark:invert' src={backArrow} alt="Back arrow icon." />
         </div>
     );
 }

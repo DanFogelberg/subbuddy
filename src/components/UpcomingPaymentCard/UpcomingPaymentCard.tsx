@@ -20,9 +20,9 @@ const UpcomingPaymentCard = (props:UpcomingPaymentCardProps) => {
     
     
     return (
-        <article className='bg-black text-font_primary_white rounded-[10px] p-4 flex gap-3 w-[197px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] dark:bg-widget_primary_black'>
+        <article className='bg-font_primary_black text-font_primary_white rounded-[10px] p-4 flex gap-3 w-auto shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] dark:bg-widget_primary_black'>
             <div className='flex flex-col'>
-                <img className='w-[50px] h-[50px]' src={imageUrl} alt="Image of the Netflix logo." />
+                <img className='max-w-[50px] max-h-[50px]' src={imageUrl} alt="Image of the company logo." />
                 <p className='font-semibold'>{props.name}</p>
             </div>
             <div className='flex flex-col'>

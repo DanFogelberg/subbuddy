@@ -112,7 +112,7 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
     <section className="flex flex-col gap-8 w-full items-center">
         <h3>Profil</h3>
         <div className="flex flex-col gap-4 w-full">
-            <h4 className="self-start">Email</h4>
+            <h4 className="self-start dark:text-font_primary_subtle">Email</h4>
             <SettingsButtonInput 
                 title={currentEmail}
                 icon={pencilIcon}
@@ -129,7 +129,7 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
                 clickFunction={checkIfPasswordIsEditable}
                 onChangeFunction={handlePasswordEdit}
             />
-            <h4 className="self-start">Lösenord</h4>
+            <h4 className="self-start dark:text-font_primary_subtle">Lösenord</h4>
         </div>
         <Button 
             backgroundColor='bg-button_primary_orange'

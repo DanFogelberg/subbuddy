@@ -13,7 +13,11 @@ interface SettingsButtonProps {
       >
         <p>{props.title}</p>
         {typeof props.indicator === 'string' ? (
-          <img src={props.indicator} alt="Icon of an arrow" onClick={() => {props.clickFunction && props.clickFunction()}} />
+          <img 
+            className="dark:invert"
+            src={props.indicator}
+            alt="Icon of an arrow" 
+            onClick={() => {props.clickFunction && props.clickFunction()}} />
         ) : (
           props.indicator
         )}
