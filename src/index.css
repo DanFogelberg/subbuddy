@@ -14,17 +14,17 @@
 }
 
 :root {
-  --color-background-primary-white: #F9F8F7;
+  --color-background-primary-white: #f9f8f7;
   --color-background-primary-black: #121212;
-  --color-widget-background-white: #FFFFFF;
+  --color-widget-background-white: #ffffff;
   --color-widget-background-black: #383838;
   --color-font-color-black: #070707;
-  --color-font-color-white: #FFFFFF;
+  --color-font-color-white: #ffffff;
   --color-font-color-gray: #515356;
-  --color-font-color-subtle: #ACACAC;
+  --color-font-color-subtle: #acacac;
   --color-button-primary-black: #070707;
-  --color-button-primary-orange: #FFDFB6;
-  --color-button-primary-orange-pressed: #FFB85E;
+  --color-button-primary-orange: #ffdfb6;
+  --color-button-primary-orange-pressed: #ffb85e;
   --color-button-primary-black-pressed: #515356;
   font-family: 'Raleway', sans-serif;
   line-height: 1.5;

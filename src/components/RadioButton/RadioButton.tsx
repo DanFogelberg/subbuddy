@@ -1,7 +1,5 @@
 const RadioButton = () => {
-    return (
-        <input type="radio" />
-    );
-}
+  return <input type="radio" />;
+};
 
 export default RadioButton;
