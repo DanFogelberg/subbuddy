@@ -15,16 +15,18 @@ interface LoginProps {
 const LoginForm:React.FC<LoginProps> = (props) => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string|null>(null);
 
     const signIn = (user: string, password: string) => {
         props.supabase.auth.signInWithPassword({
             email: user,
             password: password
             }).then((response) => {
-                if(response.error === null)
-                {
+                if(response.error === null){
                     props.setSignedIn(true)
                     props.getSubscriptions();  
+                }else{
+                    setErrorMessage("Det blev fel!");
                 }
             });
     }
@@ -59,7 +61,8 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                     title="Skapa konto" clickFunction = {() => props.setLoginView("createAccount")}type="button" backgroundColor="bg-button_primary_orange"/>
             </div>
         </form>
-        <p onClick={() => props.setLoginView("login")}>Har du redan ett konto? Logga in</p>
+        {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
+        <p onClick={() => props.setLoginView("login")}>Glömt ditt lösenord? SubBud hjälper dig!</p>
         <p onClick={() => props.setShowIntegrityPolicy("true")}>Läs SubBuds integritetspolicy</p>
         </>
     );

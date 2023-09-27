@@ -12,6 +12,7 @@ interface CreateAccountProps {
 const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string|null>(null);
 
     const createAccount = (user:string, password:string) => {
         console.log(user, password);
@@ -24,8 +25,7 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
             {
                 props.setLoginView("login");
             }else {
-                //Show error somehow
-                console.log("Errorz");
+                setErrorMessage("Det blev fel!");
             }
         });
     }
@@ -49,6 +49,7 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
                 <Button title="Skapa konto" clickFunction = {() => createAccount(user, password)}type="button"/>
             </div>
         </form>
+        {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
         <p onClick={() => props.setLoginView("login")}>Har du redan ett konto? Logga in</p>
         <p onClick={() => props.setShowIntegrityPolicy("true")}>Läs SubBuds integritetspolicy</p>
         </>

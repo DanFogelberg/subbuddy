@@ -28,6 +28,7 @@ const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
     const [serviceId, setServiceId] = useState<number>(0);
     const [nextPayment, setNextPayment] = useState<string>("");
     const [cost, setCost] = useState<number|undefined>();
+    const [errorMessage, setErrorMessage] = useState<string|null>(null);
 
     const handleSubmit = async (serviceId:number, nextPayment:string, cost:number|undefined = undefined) => {
         const insertData:InsertData = {
@@ -38,7 +39,9 @@ const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
             };
         if(cost) insertData.cost = cost;
         const { data, error } = await props.supabase.from("subscription").insert(insertData);
-        await props.getSubscriptions();
+        if(error){
+            setErrorMessage("Fel!");
+        } else await props.getSubscriptions();
         
     }
 
@@ -53,6 +56,8 @@ const AddSubscriptionContainer = (props:AddSubscriptionContainerProps) => {
                 clickFunction={async () => {await handleSubmit(serviceId, nextPayment, cost)}}
                 backgroundColor="bg-button_primary_orange"
             />
+            {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
+            
         </section>
     );
 }

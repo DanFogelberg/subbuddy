@@ -21,14 +21,19 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
   const [previousPassword, setPreviousPassword] = useState('');
   const [isEmailEditable, setIsEmailEditable] = useState(false);
   const [isPasswordEditable, setIsPasswordEditable] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string|null>(null);
+  
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     props.supabase.auth.getUser().then((result) => {
-      if(result.data.user != null && result.data.user.email != null) setEmail(result.data.user.email);
-    })
+      if(result.data.user != null && result.data.user.email != null){
+        setEmail(result.data.user.email);
+        setPreviousEmail(result.data.user.email);
+      }
+      })
 
 
   },[])
@@ -68,15 +73,31 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
     }
   };
 
-  const saveChanges = () => {
-    console.log('Ändringar sparade!');
+  const saveChanges = async () => {
+    
     const newUserData:UserData={};
+    console.log(newUserData);
     if(currentEmail != previousEmail) newUserData.email = currentEmail;
     if(currentPassword != '********') newUserData.password = currentPassword;
 
+    console.log(newUserData);
 
     props.supabase.auth.getUser().then((result)=>{console.log(result)});
-    if(newUserData.email != undefined || newUserData.password != undefined) props.supabase.auth.updateUser(newUserData).then((result)=> console.log(result))
+    if(newUserData.email === undefined && newUserData.password === undefined){
+      console.log("ost");
+      setErrorMessage("Ändra email eller lösenord")
+    }else{
+      const result = await props.supabase.auth.updateUser(newUserData);
+      if(result.error)
+      {
+        setErrorMessage("Det blev fel!");
+      }else{
+        setErrorMessage(null);
+        console.log(result.data);
+      }
+      
+    }
+    
   };
 
   return (
@@ -107,6 +128,7 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
             title="Spara ändringar"
             clickFunction={saveChanges}
         />
+      {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
     </section>
   );
 };
