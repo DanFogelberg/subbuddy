@@ -22,6 +22,7 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
   const [isEmailEditable, setIsEmailEditable] = useState(false);
   const [isPasswordEditable, setIsPasswordEditable] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string|null>(null);
+  const [resultMessage, setResultMessage] = useState<string|null>(null);
   
 
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -75,14 +76,11 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
 
   const saveChanges = async () => {
     
+    setResultMessage(null);
     const newUserData:UserData={};
-    console.log(newUserData);
     if(currentEmail != previousEmail) newUserData.email = currentEmail;
     if(currentPassword != '********') newUserData.password = currentPassword;
 
-    console.log(newUserData);
-
-    props.supabase.auth.getUser().then((result)=>{console.log(result)});
     if(newUserData.email === undefined && newUserData.password === undefined){
       console.log("ost");
       setErrorMessage("Ändra email eller lösenord")
@@ -90,12 +88,22 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
       const result = await props.supabase.auth.updateUser(newUserData);
       if(result.error)
       {
-        setErrorMessage("Det blev fel!");
+        if(newUserData.password != undefined && newUserData.password.length < 8) setErrorMessage("Lösenordet måste vara minst 8 tecken")
+        else setErrorMessage("Något blev fel!");
+        // console.log(result.error.status);
       }else{
         setErrorMessage(null);
-        console.log(result.data);
+        if(newUserData.email === undefined)
+        {
+          setResultMessage("Lösenordet har ändrats!");
+        } 
+        else if(newUserData.password === undefined)
+        {
+          setResultMessage("Vi har skickat ett bekräftelsemail till din gamla adress. Klicka på länken i det för att byta till din nya email");
+          setPreviousEmail(currentEmail);
+        } 
+        else setResultMessage("Lösenordet har ändrats! Vi har också skickat ett bekräftelsemail till din gamla adress. Klicka på länken i det för att byta till din nya email  ");
       }
-      
     }
     
   };
@@ -129,6 +137,7 @@ const ProfileSettingsContainer: React.FC<ProfileSettingsContainerProps> = (props
             clickFunction={saveChanges}
         />
       {errorMessage != null ? <p className="text-red-600">{errorMessage}</p> : <></>}
+      {resultMessage != null ? <p className="text-green-600">{resultMessage}</p> : <></>}
     </section>
   );
 };

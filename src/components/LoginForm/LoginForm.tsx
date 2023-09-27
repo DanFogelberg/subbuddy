@@ -18,6 +18,12 @@ const LoginForm:React.FC<LoginProps> = (props) => {
     const [errorMessage, setErrorMessage] = useState<string|null>(null);
 
     const signIn = (user: string, password: string) => {
+        setErrorMessage(null);
+        if(user.length < 3 || password.length < 1)
+        {
+            setErrorMessage("Fyll i email och lösenord");
+            return;
+        }
         props.supabase.auth.signInWithPassword({
             email: user,
             password: password
@@ -26,7 +32,9 @@ const LoginForm:React.FC<LoginProps> = (props) => {
                     props.setSignedIn(true)
                     props.getSubscriptions();  
                 }else{
-                    setErrorMessage("Det blev fel!");
+                    console.log(response.error.status);
+                    if(response.error.status === 400) setErrorMessage("Fel email eller lösenord");
+                    else setErrorMessage("Det blev fel!");
                 }
             });
     }

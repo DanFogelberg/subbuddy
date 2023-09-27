@@ -15,7 +15,12 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
     const [errorMessage, setErrorMessage] = useState<string|null>(null);
 
     const createAccount = (user:string, password:string) => {
-        console.log(user, password);
+        setErrorMessage(null);
+        if(password.length < 8)
+        {
+            setErrorMessage("Lösenordet måste vara minst 8 tecken")
+            return;
+        }
         props.supabase.auth.signUp({
             email: user, 
             password: password
@@ -25,7 +30,7 @@ const CreateAccountForm:React.FC<CreateAccountProps> = (props) => {
             {
                 props.setLoginView("login");
             }else {
-                setErrorMessage("Det blev fel!");
+                setErrorMessage("Någonting gick fel!");
             }
         });
     }
