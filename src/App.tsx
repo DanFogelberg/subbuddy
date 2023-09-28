@@ -214,8 +214,7 @@ function App() {
               subscriptions={subscriptions}
               supabase={supabase}
             />
-            <h2>statistik</h2>
-            {/* temp h2 */}
+            <h3 className='w-full text-left pb-4'>Statistik</h3>
             {streamingCost > 0 ? (
               <StatisticsCard name="Streaming" cost={streamingCost} />
             ) : (
@@ -238,7 +237,7 @@ function App() {
               <AddSubscriptionIcon
                 setSubscriptionsView={setSubscriptionsView}
               />
-              <h3 className=" w-full text-left text-xl font-semibold mb-4">
+              <h3 className="w-full text-left pb-4">
                 Alla subs
               </h3>
               {subscriptions.map(subscription => {
@@ -260,14 +259,14 @@ function App() {
                   setSubscriptionsView('allSubs');
                 }}
               />
-              <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
+              <h3 className='w-full text-left pb-4'>
                 Kategorier
               </h3>
               <CategoriesContainer
                 setCategoryView={setCategoryView}
                 setSubscriptionsView={setSubscriptionsView}
               />
-              <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
+              <h3 className='w-full text-left pb-4'>
                 Populära subs
               </h3>
               <ProvidersContainer

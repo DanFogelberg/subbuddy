@@ -57,7 +57,7 @@ const LoginForm: React.FC<LoginProps> = props => {
       >
         <label htmlFor="user-name">Email</label>
         <input
-          className="border-b-[1px] bg-transparent w-full"
+          className="border-b-[1px] bg-transparent w-full outline-none"
           type="text"
           name="user-name"
           onChange={handleUserChange}
@@ -65,7 +65,7 @@ const LoginForm: React.FC<LoginProps> = props => {
         />
         <label htmlFor="password">Lösenord</label>
         <input
-          className="border-b-[1px] bg-transparent w-full"
+          className="border-b-[1px] bg-transparent w-full outline-none"
           type="password"
           name="password"
           onChange={handlePasswordChange}
