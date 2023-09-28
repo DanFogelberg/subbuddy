@@ -22,6 +22,7 @@ import NotificationsSettingsContainer from './components/NotificationsSettingsCo
 import CreateAccountForm from './components/CreateAccountForm/CreateAccountForm';
 import IntegrityPolicy from './components/IntegrityPolicy/IntegrityPolicy';
 
+//OneSignal setup
 async function runOneSignal() {
   await OneSignal.init({ appId: 'd5240cd1-4a30-42cc-9279-5a7155b27fba' });
   OneSignal.Slidedown.promptPush();
@@ -70,12 +71,6 @@ function App() {
   const [categoryView, setCategoryView] = useState<string>(''); //Sets content on subscriptions category page: streaming, paper, music
 
   const [profileView, setProfileView] = useState<string>('myAccount'); //Vies on "profile" page: myAccount, profile, notifications
-
-  //Example typescript for useStates
-  // const [titles, setTitles]: [
-  //   titles: titleObject[],
-  //   setTitles: React.Dispatch<React.SetStateAction<titleObject[]>>
-  // ] = useState<Array<titleObject>>([]); //**För att typa titles måste vi type setTitles
 
   useEffect(() => {
     getProviders();
@@ -214,7 +209,7 @@ function App() {
               subscriptions={subscriptions}
               supabase={supabase}
             />
-            <h3 className='w-full text-left pb-4'>Statistik</h3>
+            <h3 className="w-full text-left pb-4">Statistik</h3>
             {streamingCost > 0 ? (
               <StatisticsCard name="Streaming" cost={streamingCost} />
             ) : (
@@ -237,9 +232,7 @@ function App() {
               <AddSubscriptionIcon
                 setSubscriptionsView={setSubscriptionsView}
               />
-              <h3 className="w-full text-left pb-4">
-                Alla subs
-              </h3>
+              <h3 className="w-full text-left pb-4">Alla subs</h3>
               {subscriptions.map(subscription => {
                 return (
                   <ActiveSubscriptionCard
@@ -259,16 +252,12 @@ function App() {
                   setSubscriptionsView('allSubs');
                 }}
               />
-              <h3 className='w-full text-left pb-4'>
-                Kategorier
-              </h3>
+              <h3 className="w-full text-left pb-4">Kategorier</h3>
               <CategoriesContainer
                 setCategoryView={setCategoryView}
                 setSubscriptionsView={setSubscriptionsView}
               />
-              <h3 className='w-full text-left pb-4'>
-                Populära subs
-              </h3>
+              <h3 className="w-full text-left pb-4">Populära subs</h3>
               <ProvidersContainer
                 providers={topProviders}
                 supabase={supabase}
