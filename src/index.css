@@ -6,7 +6,7 @@
 /* Define base styles for h3 and h4 */
 @layer base {
   h2 {
-    @apply font-inter
+    @apply font-inter text-2xl font-semibold
   }
   h3 {
     @apply text-2xl font-semibold;
@@ -29,7 +29,7 @@
   --color-button-primary-orange: #ffdfb6;
   --color-button-primary-orange-pressed: #ffb85e;
   --color-button-primary-black-pressed: #515356;
-  
+
   font-family: 'Raleway', sans-serif;
   line-height: 1.5;
   font-weight: 400;

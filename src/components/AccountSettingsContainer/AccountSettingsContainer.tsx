@@ -21,7 +21,7 @@ const AccountSettingsContainer = (props: AccountSettingsContainerProps) => {
 
   return (
     <section className="flex flex-col gap-8 w-full items-center">
-      <h2 className={'w-full text-left text-2xl font-bold mb-4 font-inter'}>
+      <h2 className='w-full text-left'>
         Mitt Konto
       </h2>
       <div className="flex flex-col gap-4 w-full">

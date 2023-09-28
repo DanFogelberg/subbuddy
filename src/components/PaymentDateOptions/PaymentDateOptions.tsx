@@ -21,6 +21,7 @@ const PaymentDateOptions = (props: PaymentDateOptionsProps) => {
       inline
       selected={startDate}
       onChange={date => setStartDate(date)}
+      minDate={new Date()}
     />
   );
 };
