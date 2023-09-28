@@ -79,12 +79,14 @@ const CreateAccountForm: React.FC<CreateAccountProps> = props => {
       ) : (
         <></>
       )}
-      <p onClick={() => props.setLoginView('login')}>
-        Har du redan ett konto? Logga in
-      </p>
-      <p onClick={() => props.setShowIntegrityPolicy('true')}>
-        Läs SubBuds integritetspolicy
-      </p>
+      <div className='flex flex-col gap-3 pt-[84px]'>
+        <p className='text-xs underline text-font_primary_gray' onClick={() => props.setLoginView('login')}>
+          Har du redan ett konto? Logga in
+        </p>
+        <p className='text-xs underline text-font_primary_gray' onClick={() => props.setShowIntegrityPolicy('true')}>
+          Läs SubBuds integritetspolicy
+        </p>
+      </div>
     </>
   );
 };

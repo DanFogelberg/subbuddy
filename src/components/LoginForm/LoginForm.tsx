@@ -104,12 +104,14 @@ const LoginForm: React.FC<LoginProps> = props => {
       ) : (
         <></>
       )}
-      <p onClick={() => props.setLoginView('login')}>
-        Glömt ditt lösenord? SubBud hjälper dig!
-      </p>
-      <p onClick={() => props.setShowIntegrityPolicy('true')}>
-        Läs SubBuds integritetspolicy
-      </p>
+      <div className='flex flex-col gap-3 pt-[84px]'>
+        <p className='text-xs underline text-font_primary_gray' onClick={() => props.setLoginView('login')}>
+            Glömt ditt lösenord? SubBud hjälper dig!
+        </p>
+        <p className='text-xs underline text-font_primary_gray' onClick={() => props.setShowIntegrityPolicy('true')}>
+            Läs SubBuds integritetspolicy
+        </p>
+      </div>
     </>
   );
 };
