@@ -1,6 +1,8 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
+import chartIcon from '../../assets/icons/chart-icon.svg';
+import closeIcon from '../../assets/icons/close-icon.svg';
 
 interface Subscription {
   id: string;
@@ -22,15 +24,20 @@ interface ActiveSubscrionCardProps {
   setSubscriptions: Function;
 }
 const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
-  const normalHeight = 'h-[100px] ';
-  const extendedHeight = 'h-[200px] ';
-  const normalColor = 'bg-slate-100 ';
-  const extendedColor = 'bg-slate-400';
+  const normalHeight = 'h-fit';
+  const extendedHeight = 'h-fit';
+  const normalColor = 'bg-widget_primary_white';
+  const darkModeColor = 'bg-widget_primary_black';
+  const extendedColor = 'bg-button_primary_orange';
+  const darkModeFont = 'text-font_primary_white';
+  const darkModeExtendedFont = 'text-font_primary_black';
 
   const [imageUrl, setImageUrl] = useState('');
   const [showMore, setShowMore] = useState(false);
   const [height, setHeight] = useState(normalHeight);
   const [backgroundColor, setBackgroundColor] = useState(normalColor);
+  const [darkModeBackgroundColor, setDarkBackgroundColor] = useState(darkModeColor);
+  const [darkModeFontColor, setDarkModeFontColor] = useState(darkModeFont);
 
   useEffect(() => {
     const imageUrlData = props.supabase.storage
@@ -63,6 +70,8 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
       setShowMore(true);
       setHeight(extendedHeight);
       setBackgroundColor(extendedColor);
+      setDarkBackgroundColor(extendedColor);
+      setDarkModeFontColor(darkModeExtendedFont);
     }
   };
 
@@ -70,23 +79,21 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
     setShowMore(false);
     setHeight(normalHeight);
     setBackgroundColor(normalColor);
+    setDarkBackgroundColor(darkModeColor);
+    setDarkModeFontColor(darkModeFont);
   };
 
   return (
     <article
       onClick={() => show()}
-      className={
-        height +
-        backgroundColor +
-        'text-font_primary_black rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all mb-3'
-      }
+      className={`${height} ${backgroundColor} flex flex-col gap-4 justify-center rounded-[10px] shadow-[rgba(0,_0,_0,_0.25)_0px_2px_2px_0px] py-4 px-6 transition-all mb-3 dark:${darkModeBackgroundColor} dark:${darkModeFontColor}`}
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <img
             className="w-[50px] h-[50px] rounded-[5px]"
             src={imageUrl}
-            alt="Image of the logo."
+            alt="Image of the company logo."
           />
           <div className="text-left">
             <p className="font-semibold">
@@ -106,14 +113,29 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
         </div>
       </div>
       {showMore ? (
-        <>
-          <Button
-            clickFunction={() => deleteSubscription()}
-            title={'Ta bort prenumeration'}
-            backgroundColor="bg-button_primary_black"
-          />
-          <h1 onClick={() => hide()}>Close X</h1>
-        </>
+        <div className='w-full flex flex-col gap-4'>
+            <div className='flex justify-between items-center'>
+                <p className='font-medium text-font_primary_gray'>Abonemangsinfo</p>
+                <p className='font-semibold'>{props.subscription.service.name}</p>
+                <button className='bg-button_primary_black rounded-[20px] px-3 py-1.5 text-font_primary_white font-semibold'>Ändra</button>
+            </div>
+            <div>
+                <p className='text-left pb-2'>Prisförändringar</p>
+                <div className='flex gap-4'>
+                    <img src={chartIcon} alt="Icon of a chart." />
+                    <p className='text-left'>Detta priset har ökat med 15% det senaste året</p>
+                </div>
+            </div>
+            <Button
+                clickFunction={() => deleteSubscription()}
+                title='Ta bort prenumeration'
+                backgroundColor="bg-button_primary_black"
+            />
+            <div className='flex justify-center items-center gap-[7px]' onClick={() => hide()}>
+                <p className='text-xs'>Close</p>
+                <img className='w-2.5 h-2.5' src={closeIcon} alt="Icon of an X"></img>
+            </div>
+        </div>
       ) : (
         <></>
       )}
