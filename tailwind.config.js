@@ -4,7 +4,7 @@ export default {
   darkMode: "class",
   theme: {
     fontFamily: {
-      'inter': ["inter"],
+      'inter': ['Inter', 'sans-serif'],
     },
     extend: {
       colors: {

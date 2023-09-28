@@ -5,6 +5,9 @@
 
 /* Define base styles for h3 and h4 */
 @layer base {
+  h2 {
+    @apply font-inter
+  }
   h3 {
     @apply text-2xl;
   }
