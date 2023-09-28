@@ -2,7 +2,6 @@ import { useState, useEffect, useId } from 'react';
 import './App.css';
 import { createClient } from '@supabase/supabase-js';
 import OneSignal from 'react-onesignal';
-
 import LoginForm from './components/LoginForm/LoginForm';
 import Menu from './components/Menu/Menu';
 import MonthlyCostCard from './components/MonthlyCostCard/MonthlyCostCard';
@@ -10,11 +9,9 @@ import StatisticsCard from './components/StatisticsCard/StatisticsCard';
 import UpcomingPaymentsContainer from './components/UpcomingPaymentsContainer/UpcomingPaymentsContainer';
 import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 import ActiveSubscriptionCard from './components/ActiveSubscriptionCard/ActiveSubscriptionCard';
-import AddSubscriptionCard from './components/AddSubscriptionCard/AddSubscriptionCard';
 import ProvidersContainer from './components/ProvidersContainer/ProvidersContainer';
 import AddSubscriptionIcon from './components/AddSubscriptionIcon/AddSubscriptionIcon';
 import AddSubscriptionContainer from './components/AddSubscriptionContainer/AddSubscriptionContainer';
-import ProfileContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
 import BackIcon from './components/BackIcon/BackIcon';
 import AccountSettingsContainer from './components/AccountSettingsContainer/AccountSettingsContainer';
 import ProfileSettingsContainer from './components/ProfileSettingsContainer/ProfileSettingsContainer';
@@ -196,6 +193,31 @@ function App() {
     else setServices(data);
   }
 
+  const pushNotification = async () => {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Basic ' + import.meta.env.VITE_ONESIGNAL_KEY,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        included_segments: ['All'],
+        app_id: import.meta.env.VITE_ONESIGNAL_ID,
+        contents: {
+          en: 'HEEEEEJ! :D Du är våran favoritkund! :D',
+          es: 'Hola en español! :D',
+        },
+        name: 'Testing',
+      }),
+    };
+
+    fetch('https://onesignal.com/api/v1/notifications', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+  };
+
   if (showIntegrityPolicy)
     return <IntegrityPolicy setShowIntegrityPolicy={setShowIntegrityPolicy} />;
 
@@ -325,7 +347,9 @@ function App() {
                 setProfileView('myAccount');
               }}
             />
-            <NotificationsSettingsContainer />
+            <NotificationsSettingsContainer
+              pushNotification={pushNotification}
+            />
           </>
         )}
         <Menu setView={setView} />

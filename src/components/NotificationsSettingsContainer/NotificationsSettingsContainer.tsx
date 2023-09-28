@@ -1,7 +1,14 @@
+import Button from '../Button/Button';
 import RadioButton from '../RadioButton/RadioButton';
 import SettingsButton from '../SettingsButton/SettingsButton';
 
-const NotificationsSettingsContainer = () => {
+interface NotificationSettingsContainerProps {
+  pushNotification: Function;
+}
+
+const NotificationsSettingsContainer = (
+  props: NotificationSettingsContainerProps,
+) => {
   return (
     <section className="flex flex-col gap-8 w-full items-center">
       <h2 className={'w-full text-left text-2xl font-bold mb-4 font-inter'}>
@@ -19,6 +26,12 @@ const NotificationsSettingsContainer = () => {
         <SettingsButton
           title="Kommande betalningar"
           indicator={<RadioButton />}
+        />
+
+        <Button
+          clickFunction={props.pushNotification}
+          title="Testa notifikationer!"
+          backgroundColor="bg-button_primary_black"
         />
       </div>
     </section>
