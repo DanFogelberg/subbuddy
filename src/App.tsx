@@ -83,7 +83,9 @@ function App() {
   }, []);
 
   useEffect(() => {
+    checkSubscriptions();
     calculateCosts();
+    setTimeout(() => console.log(subscriptions), 10000);
   }, [subscriptions]);
 
   useEffect(() => {
@@ -162,6 +164,34 @@ function App() {
       setStreamingCost(streamingCost);
       setMusicCost(musicCost);
       setPaperCost(paperCost);
+    });
+  };
+
+  const checkSubscriptions = async () => {
+    let updated = false;
+    subscriptions.forEach((subscription, index) => {
+      let updatedThis = false;
+      let date = new Date(subscription.next_payment);
+      const newSubscriptions = subscriptions;
+      while (date.getTime() < new Date().getTime()) {
+        date.setDate(date.getDate() + subscription.service.days_per_payment);
+        updated = true;
+        updatedThis = true;
+      }
+
+      if (updatedThis === true) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; //0-index
+        const day = date.getDate();
+        const next_payment = year + '-' + month + '-' + day;
+        newSubscriptions[index].next_payment = next_payment;
+
+        supabase
+          .from('subscription')
+          .update({ next_payment: next_payment })
+          .eq('id', subscription.id);
+      }
+      if (updated) setSubscriptions([...newSubscriptions]);
     });
   };
 
