@@ -55,11 +55,14 @@ const AccountSettingsContainer = (props: AccountSettingsContainerProps) => {
         title="Logga ut"
         clickFunction={logoutFunction}
         backgroundColor="bg-button_primary_black"
+        fontColor='text-font_primary_white'
+        darkBackgroundColor='bg-widget_primary_black'
       />
       <Button //Needs delete account function
         title="Radera konto"
         clickFunction={logoutFunction}
         backgroundColor="bg-button_primary_orange"
+        fontColor='text-font_primary_black'
       />
     </section>
   );

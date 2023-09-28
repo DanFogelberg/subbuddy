@@ -31,6 +31,7 @@ const NotificationsSettingsContainer = (
         <Button
           clickFunction={props.pushNotification}
           title="Testa notifikationer!"
+          fontColor='text-font_primary_white'
           backgroundColor="bg-button_primary_black"
         />
       </div>

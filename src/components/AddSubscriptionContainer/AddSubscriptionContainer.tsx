@@ -80,6 +80,7 @@ const AddSubscriptionContainer = (props: AddSubscriptionContainerProps) => {
       <AddSubscriptionInput setCost={setCost} />
       <Button
         title="Lägg till sub!"
+        fontColor='text-font_primary_black'
         clickFunction={async () => {
           await handleSubmit(serviceId, nextPayment, cost);
         }}

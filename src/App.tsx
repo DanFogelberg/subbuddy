@@ -18,6 +18,8 @@ import ProfileSettingsContainer from './components/ProfileSettingsContainer/Prof
 import NotificationsSettingsContainer from './components/NotificationsSettingsContainer/NotificationsSettingsContainer';
 import CreateAccountForm from './components/CreateAccountForm/CreateAccountForm';
 import IntegrityPolicy from './components/IntegrityPolicy/IntegrityPolicy';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import AddSubscriptionSearchBar from './components/AddSubscriptionSearchBar/AddSubscriptionSearchBar';
 
 //OneSignal setup
 async function runOneSignal() {
@@ -68,6 +70,15 @@ function App() {
   const [categoryView, setCategoryView] = useState<string>(''); //Sets content on subscriptions category page: streaming, paper, music
 
   const [profileView, setProfileView] = useState<string>('myAccount'); //Vies on "profile" page: myAccount, profile, notifications
+  const [loading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => {clearTimeout(loadingTimeout)}
+  }, [loginView]);
 
   useEffect(() => {
     getProviders();
@@ -274,6 +285,7 @@ function App() {
                   setSubscriptionsView('allSubs');
                 }}
               />
+              <AddSubscriptionSearchBar />
               <h3 className="w-full text-left pb-4">Kategorier</h3>
               <CategoriesContainer
                 setCategoryView={setCategoryView}
@@ -355,23 +367,37 @@ function App() {
         <Menu setView={setView} />
       </>
     );
-  //If not signed in
-  return loginView === 'login' ? (
-    <LoginForm
-      supabase={supabase}
-      setSignedIn={setSignedIn}
-      getSubscriptions={getSubscriptions}
-      setLoginView={setLoginView}
-      setShowIntegrityPolicy={setShowIntegrityPolicy}
-    />
-  ) : (
-    //createAccount view.
-    <CreateAccountForm
-      supabase={supabase}
-      setLoginView={setLoginView}
-      setShowIntegrityPolicy={setShowIntegrityPolicy}
-    ></CreateAccountForm>
-  );
+    //If not signed in
+    return (
+      <>
+        {!loading ? (
+          loginView === 'login' ? (
+            <LoginForm
+              supabase={supabase}
+              setSignedIn={setSignedIn}
+              getSubscriptions={getSubscriptions}
+              setLoginView={setLoginView}
+              setShowIntegrityPolicy={setShowIntegrityPolicy}
+            />
+          ) : (
+            // CreateAccount view
+            <CreateAccountForm
+              supabase={supabase}
+              setLoginView={setLoginView}
+              setShowIntegrityPolicy={setShowIntegrityPolicy}
+            />
+          )
+        ) : (
+          <LoadingScreen />
+        )}
+      </>
+    );
+    
+    
+    
+    
+    
+    
 }
 
 export default App;

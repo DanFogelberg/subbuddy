@@ -71,6 +71,7 @@ const CreateAccountForm: React.FC<CreateAccountProps> = props => {
             clickFunction={() => createAccount(user, password)}
             type="button"
             backgroundColor="bg-button_primary_orange"
+            fontColor='text-font_primary_white'
           />
         </div>
       </form>

@@ -136,6 +136,7 @@ const ProfileSettingsContainer: React.FC<
       </div>
       <Button
         backgroundColor="bg-button_primary_orange"
+        fontColor='text-font_primary_black'
         title="Spara ändringar"
         clickFunction={saveChanges}
       />

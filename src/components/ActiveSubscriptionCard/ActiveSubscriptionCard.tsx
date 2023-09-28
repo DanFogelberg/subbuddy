@@ -130,6 +130,7 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
                 clickFunction={() => deleteSubscription()}
                 title='Ta bort prenumeration'
                 backgroundColor="bg-button_primary_black"
+                fontColor='text-font_primary_white'
             />
             <div className='flex justify-center items-center gap-[7px]' onClick={() => hide()}>
                 <p className='text-xs'>Close</p>

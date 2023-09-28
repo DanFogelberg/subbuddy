@@ -17,7 +17,7 @@
 }
 
 :root {
-  --color-background-primary-white: #f9f8f7;
+  --color-background-primary-white: #F9F8F7;
   --color-background-primary-black: #121212;
   --color-widget-background-white: #ffffff;
   --color-widget-background-black: #383838;
@@ -34,7 +34,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --color-background: var(--color-background-bg-primary-white);
+  --color-background: var(--color-background-primary-white);
   --color-font: var(--color-font-color-black);
   --color-icons: var(--color-stroke-black);
 
@@ -58,4 +58,40 @@ body {
 .your-component-class {
   background-color: var(--color-background);
   color: var(--color-font);
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes moveToTop {
+  to {
+    top: 0;
+  }
+}
+
+@keyframes moveToBottom {
+  to {
+    bottom: 0;
+  }
+}
+
+.animation-top {
+  animation: moveToTop 0.8s ease forwards;
+}
+
+.animation-bottom {
+  animation: moveToBottom 0.8s ease forwards;
+}
+
+.animation-fade-out {
+  animation: fadeOut 1.5s ease;
 }

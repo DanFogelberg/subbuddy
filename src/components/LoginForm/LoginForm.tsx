@@ -90,12 +90,15 @@ const LoginForm: React.FC<LoginProps> = props => {
             clickFunction={() => signIn(user, password)}
             type="button"
             backgroundColor="bg-button_primary_black"
+            fontColor='text-font_primary_white'
+            darkBackgroundColor='bg-widget_primary_black'
           />
           <Button
             title="Skapa konto"
             clickFunction={() => props.setLoginView('createAccount')}
             type="button"
             backgroundColor="bg-button_primary_orange"
+            fontColor='text-font_primary_black'
           />
         </div>
       </form>
