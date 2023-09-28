@@ -15,7 +15,7 @@ const CategoryCard: React.FC<CategoryCardProps> = props => {
         props.setSubscriptionsView('category');
       }}
     >
-      <p className="absolute z-10 text-xs drop-shadow-[rgba(0,_0,_0,_0.75)_0px_1px_1px]">
+      <p className="absolute z-10 text-xs font-semibold drop-shadow-[rgba(0,_0,_0,_0.75)_0px_1px_1px]">
         {props.title}
       </p>
       <img

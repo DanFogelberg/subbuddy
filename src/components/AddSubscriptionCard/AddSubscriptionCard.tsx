@@ -25,7 +25,7 @@ const AddSubscriptionCard: React.FC<AddSubscriptionCardProps> = props => {
           src={props.logo}
           alt="Image of the company."
         />
-        <p>{props.title}</p>
+        <p className="font-semibold">{props.title}</p>
       </div>
       <img
         className="w-2 h-3 dark:invert"
