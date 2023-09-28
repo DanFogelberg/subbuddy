@@ -1,9 +1,9 @@
 const LoadingScreen = () => {
   return (
     <section className="w-auto h-screen relative m-[-1.5rem] flex flex-col justify-center">
-      <div className="w-auto h-auto">
+      <div className="w-auto h-auto absolute top-0">
         <svg
-          className="absolute top-0 w-screen h-fit"
+          className="absolute w-screen h-fit"
           xmlns="http://www.w3.org/2000/svg"
           height="459"
           viewBox="0 0 387 459"

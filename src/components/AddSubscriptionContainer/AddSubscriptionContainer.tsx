@@ -62,7 +62,7 @@ const AddSubscriptionContainer = (props: AddSubscriptionContainerProps) => {
   };
 
   return (
-    <section>
+    <section className='w-full flex flex-col gap-4 justify-center items-center'>
       <h2>Lägg till</h2>
       <AddSubscriptionButton
         title="Typ av abonemang"
