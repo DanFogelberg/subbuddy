@@ -50,10 +50,6 @@ function App() {
   const [topProviders, setTopProviders] = useState<Array<any>>([]);
   const [categoryProviders, setCategoryProviders] = useState<Array<any>>([]);
   const [services, setServices] = useState<Array<any>>([]); //Fix typescript
-  const [totalCost, setTotalCost] = useState<number>(0);
-  const [streamingCost, setStreamingCost] = useState<number>(0);
-  const [musicCost, setMusicCost] = useState<number>(0);
-  const [paperCost, setPaperCost] = useState<number>(0);
   const [addedProvider, setAddedProvider] = useState<Provider>({
     name: '',
     id: 0,
@@ -63,6 +59,12 @@ function App() {
   >([]);
   const [showIntegrityPolicy, setShowIntegrityPolicy] =
     useState<boolean>(false);
+
+  const [totalCost, setTotalCost] = useState<number>(0);
+  const [streamingCost, setStreamingCost] = useState<number>(0);
+  const [musicCost, setMusicCost] = useState<number>(0);
+  const [paperCost, setPaperCost] = useState<number>(0);
+  const [foodCost, setFoodCost] = useState<number>(0);
 
   const [view, setView] = useState<string>('home'); //Limit options here  "home" "subscriptions" "profile"
   const [loginView, setLoginView] = useState<string>('login'); //login, createAccount
@@ -141,6 +143,7 @@ function App() {
     let streamingCost = 0;
     let musicCost = 0;
     let paperCost = 0;
+    let foodCost = 0;
     const today = new Date();
     subscriptions.forEach(subscription => {
       let date = new Date(subscription.next_payment);
@@ -163,13 +166,16 @@ function App() {
         else if (subscription.service.provider.category === 'music')
           musicCost += cost;
         else if (subscription.service.provider.category === 'paper')
-          paperCost += cost; //Fix!
+          paperCost += cost;
+        else if (subscription.service.provider.category === 'food')
+          foodCost += cost;
         date.setDate(date.getDate() + subscription.service.days_per_payment);
       }
       setTotalCost(totalCost);
       setStreamingCost(streamingCost);
       setMusicCost(musicCost);
       setPaperCost(paperCost);
+      setFoodCost(foodCost);
     });
   };
 
@@ -258,6 +264,11 @@ function App() {
             )}
             {paperCost > 0 ? (
               <StatisticsCard name="Tidning" cost={paperCost} />
+            ) : (
+              <></>
+            )}
+            {foodCost > 0 ? (
+              <StatisticsCard name="Mat & Dryck" cost={foodCost} />
             ) : (
               <></>
             )}
