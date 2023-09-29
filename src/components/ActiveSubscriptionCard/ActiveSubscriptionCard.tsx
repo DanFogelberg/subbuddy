@@ -36,7 +36,8 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
   const [showMore, setShowMore] = useState(false);
   const [height, setHeight] = useState(normalHeight);
   const [backgroundColor, setBackgroundColor] = useState(normalColor);
-  const [darkModeBackgroundColor, setDarkBackgroundColor] = useState(darkModeColor);
+  const [darkModeBackgroundColor, setDarkBackgroundColor] =
+    useState(darkModeColor);
   const [darkModeFontColor, setDarkModeFontColor] = useState(darkModeFont);
 
   useEffect(() => {
@@ -109,33 +110,44 @@ const ActiveSubscriptionCard = (props: ActiveSubscrionCardProps) => {
               : props.subscription.service.cost}{' '}
             kr
           </p>
-          <p className="text-xs font-medium">1 månad</p>
+          <p className="text-xs font-medium">Månadsvis</p>
         </div>
       </div>
       {showMore ? (
-        <div className='w-full flex flex-col gap-4'>
-            <div className='flex justify-between items-center'>
-                <p className='font-medium text-font_primary_gray'>Abonemangsinfo</p>
-                <p className='font-semibold'>{props.subscription.service.name}</p>
-                <button className='bg-button_primary_black rounded-[20px] px-3 py-1.5 text-font_primary_white font-semibold'>Ändra</button>
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex justify-between items-center">
+            <p className="font-medium text-font_primary_gray">Abonemangsinfo</p>
+            <p className="font-semibold">{props.subscription.service.name}</p>
+            <button className="bg-button_primary_black rounded-[20px] px-3 py-1.5 text-font_primary_white font-semibold">
+              Ändra
+            </button>
+          </div>
+          <div>
+            <p className="text-left pb-2">Prisförändringar</p>
+            <div className="flex gap-4">
+              <img src={chartIcon} alt="Icon of a chart." />
+              <p className="text-left">
+                Detta priset har ökat med 15% det senaste året
+              </p>
             </div>
-            <div>
-                <p className='text-left pb-2'>Prisförändringar</p>
-                <div className='flex gap-4'>
-                    <img src={chartIcon} alt="Icon of a chart." />
-                    <p className='text-left'>Detta priset har ökat med 15% det senaste året</p>
-                </div>
-            </div>
-            <Button
-                clickFunction={() => deleteSubscription()}
-                title='Ta bort prenumeration'
-                backgroundColor="bg-button_primary_black"
-                fontColor='text-font_primary_white'
-            />
-            <div className='flex justify-center items-center gap-[7px]' onClick={() => hide()}>
-                <p className='text-xs'>Close</p>
-                <img className='w-2.5 h-2.5' src={closeIcon} alt="Icon of an X"></img>
-            </div>
+          </div>
+          <Button
+            clickFunction={() => deleteSubscription()}
+            title="Ta bort prenumeration"
+            backgroundColor="bg-button_primary_black"
+            fontColor="text-font_primary_white"
+          />
+          <div
+            className="flex justify-center items-center gap-[7px]"
+            onClick={() => hide()}
+          >
+            <p className="text-xs">Close</p>
+            <img
+              className="w-2.5 h-2.5"
+              src={closeIcon}
+              alt="Icon of an X"
+            ></img>
+          </div>
         </div>
       ) : (
         <></>
