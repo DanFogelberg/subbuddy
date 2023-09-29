@@ -9,6 +9,7 @@ import CategoryCard from '../CategoryCard/CategoryCard';
 interface CategoriesContainerProps {
   setCategoryView: Function;
   setSubscriptionsView: Function;
+  setCategoryMessage: Function;
 }
 
 const CategoriesContainer = (props: CategoriesContainerProps) => {
@@ -19,6 +20,7 @@ const CategoriesContainer = (props: CategoriesContainerProps) => {
         src={espressoHouseLogo}
         setCategoryView={props.setCategoryView}
         setSubscriptionsView={props.setSubscriptionsView}
+        setCategoryMessage={() => props.setCategoryMessage('Mat & Dryck')}
         category={'food'}
       />
       <CategoryCard
@@ -26,6 +28,7 @@ const CategoriesContainer = (props: CategoriesContainerProps) => {
         src={netflixLogo}
         setCategoryView={props.setCategoryView}
         setSubscriptionsView={props.setSubscriptionsView}
+        setCategoryMessage={() => props.setCategoryMessage('Streamingtjänster')}
         category={'streaming'}
       />
       <CategoryCard
@@ -33,6 +36,7 @@ const CategoriesContainer = (props: CategoriesContainerProps) => {
         src={spotifyLogo}
         setCategoryView={props.setCategoryView}
         setSubscriptionsView={props.setSubscriptionsView}
+        setCategoryMessage={() => props.setCategoryMessage('Musiktjänster')}
         category={'music'}
       />
       <CategoryCard
@@ -40,13 +44,15 @@ const CategoriesContainer = (props: CategoriesContainerProps) => {
         src={gpLogo}
         setCategoryView={props.setCategoryView}
         setSubscriptionsView={props.setSubscriptionsView}
-        category={'papers'}
+        setCategoryMessage={() => props.setCategoryMessage('Tidningar')}
+        category={'paper'}
       />
       <CategoryCard
         title="Spel"
         src={gamesLogo}
         setCategoryView={props.setCategoryView}
         setSubscriptionsView={props.setSubscriptionsView}
+        setCategoryMessage={() => props.setCategoryMessage('Spel')}
         category={'games'}
       />
     </section>

@@ -4,6 +4,7 @@ interface CategoryCardProps {
   setCategoryView: Function;
   setSubscriptionsView: Function;
   category: string;
+  setCategoryMessage: Function;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = props => {
@@ -13,6 +14,7 @@ const CategoryCard: React.FC<CategoryCardProps> = props => {
       onClick={() => {
         props.setCategoryView(props.category);
         props.setSubscriptionsView('category');
+        props.setCategoryMessage();
       }}
     >
       <p className="absolute z-10 text-xs font-semibold drop-shadow-[rgba(0,_0,_0,_0.75)_0px_1px_1px]">

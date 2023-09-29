@@ -68,6 +68,7 @@ function App() {
   const [loginView, setLoginView] = useState<string>('login'); //login, createAccount
   const [subscriptionsView, setSubscriptionsView] = useState<string>('allSubs'); //Views on "subscriptions" page: allSubs categories search
   const [categoryView, setCategoryView] = useState<string>(''); //Sets content on subscriptions category page: streaming, paper, music
+  const [categoryMessage, setCategoryMessage] = useState<string>(''); //Sets the heading message on category page
 
   const [profileView, setProfileView] = useState<string>('myAccount'); //Vies on "profile" page: myAccount, profile, notifications
   const [loading, setIsLoading] = useState(true);
@@ -77,7 +78,9 @@ function App() {
       setIsLoading(false);
     }, 1500);
 
-    return () => {clearTimeout(loadingTimeout)}
+    return () => {
+      clearTimeout(loadingTimeout);
+    };
   }, [loginView]);
 
   useEffect(() => {
@@ -290,6 +293,7 @@ function App() {
               <CategoriesContainer
                 setCategoryView={setCategoryView}
                 setSubscriptionsView={setSubscriptionsView}
+                setCategoryMessage={setCategoryMessage}
               />
               <h3 className="w-full text-left pb-4">Populära subs</h3>
               <ProvidersContainer
@@ -306,9 +310,8 @@ function App() {
                   setSubscriptionsView('search');
                 }}
               />
-              {/* Needs own component for picking title based on categoryView. */}
               <h3 className={'w-full text-left text-xl font-semibold mb-4'}>
-                {categoryView}
+                {categoryMessage}
               </h3>
               <ProvidersContainer
                 providers={categoryProviders}
@@ -367,37 +370,31 @@ function App() {
         <Menu setView={setView} />
       </>
     );
-    //If not signed in
-    return (
-      <>
-        {!loading ? (
-          loginView === 'login' ? (
-            <LoginForm
-              supabase={supabase}
-              setSignedIn={setSignedIn}
-              getSubscriptions={getSubscriptions}
-              setLoginView={setLoginView}
-              setShowIntegrityPolicy={setShowIntegrityPolicy}
-            />
-          ) : (
-            // CreateAccount view
-            <CreateAccountForm
-              supabase={supabase}
-              setLoginView={setLoginView}
-              setShowIntegrityPolicy={setShowIntegrityPolicy}
-            />
-          )
+  //If not signed in
+  return (
+    <>
+      {!loading ? (
+        loginView === 'login' ? (
+          <LoginForm
+            supabase={supabase}
+            setSignedIn={setSignedIn}
+            getSubscriptions={getSubscriptions}
+            setLoginView={setLoginView}
+            setShowIntegrityPolicy={setShowIntegrityPolicy}
+          />
         ) : (
-          <LoadingScreen />
-        )}
-      </>
-    );
-    
-    
-    
-    
-    
-    
+          // CreateAccount view
+          <CreateAccountForm
+            supabase={supabase}
+            setLoginView={setLoginView}
+            setShowIntegrityPolicy={setShowIntegrityPolicy}
+          />
+        )
+      ) : (
+        <LoadingScreen />
+      )}
+    </>
+  );
 }
 
 export default App;
