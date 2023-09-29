@@ -50,7 +50,7 @@ const LoginForm: React.FC<LoginProps> = props => {
 
   return (
     <>
-      <h2>Logga in</h2>
+      <h2 className='text-left mb-[40px]'>Logga in</h2>
       <form
         className="flex flex-col items-start justify-center w-full gap-6"
         action=""

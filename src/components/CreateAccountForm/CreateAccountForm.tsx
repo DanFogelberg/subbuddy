@@ -44,7 +44,7 @@ const CreateAccountForm: React.FC<CreateAccountProps> = props => {
 
   return (
     <>
-      <h2>Skapa konto</h2>
+      <h2 className='text-left mb-[40px]'>Skapa konto</h2>
       <form
         className="flex flex-col items-start justify-center w-full gap-6"
         action=""
